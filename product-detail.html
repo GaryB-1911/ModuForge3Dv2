@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Product — ModuForge 3D</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+<script src="cart-utils.js"></script>
+<script src="catalog-data.js"></script>
+<link rel="stylesheet" href="moduforge-styles.css" />
+</head>
+<body class="mf-product-detail">
+
+<nav id="top">
+  <div class="nav-inner">
+    <a href="index.html#top" class="logo" aria-label="ModuForge 3D home">
+      <div class="logo-mark">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="16,2 30,10 30,22 16,30 2,22 2,10" stroke="#00AAFF" stroke-width="1.5" fill="none"/>
+          <polygon points="16,8 24,12.5 24,19.5 16,24 8,19.5 8,12.5" fill="#00AAFF" opacity="0.18"/>
+          <line x1="16" y1="2" x2="16" y2="30" stroke="#00AAFF" stroke-width="0.75" opacity="0.4"/>
+          <line x1="2" y1="10" x2="30" y2="22" stroke="#00AAFF" stroke-width="0.75" opacity="0.4"/>
+          <line x1="30" y1="10" x2="2" y2="22" stroke="#00AAFF" stroke-width="0.75" opacity="0.4"/>
+          <circle cx="16" cy="16" r="3" fill="#00AAFF"/>
+        </svg>
+      </div>
+      <span class="logo-text">Modu<span>Forge</span> 3D</span>
+    </a>
+
+    <a href="index.html#products" class="nav-back">&larr; Back</a>
+
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks" role="navigation">
+      <li><a href="index.html#products">Products</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li class="nav-cart"><a href="cart.html" aria-label="Cart">Cart<span class="cart-badge">0</span></a></li>
+      <li><a href="index.html#contact">Custom Print</a></li>
+      <li><a href="index.html#contact" class="btn-contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page">
+
+  <div class="breadcrumb">
+    <a href="index.html#products">Products</a> / <span id="breadcrumbName">Loading…</span>
+  </div>
+
+  <!-- Populated content -->
+  <div class="product-layout" id="productLayout" style="display:none;">
+    <div class="product-image-wrap">
+      <img id="productImage" src="" alt="" />
+    </div>
+
+    <div class="product-info">
+      <p class="eyebrow">ModuForge 3D</p>
+      <h1 id="productName"></h1>
+      <div id="productPrice"></div>
+      <p id="productDescription"></p>
+
+      <!-- Availability / Delivery — values come from the product object -->
+      <div class="info-strip">
+        <div class="info-item">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="9" r="7"/><polyline points="9,5 9,9 12,11"/></svg>
+          <div class="info-item-text">
+            <span class="info-label">Delivery Time</span>
+            <span class="info-value" id="deliveryTime"></span>
+          </div>
+        </div>
+        <div class="info-item">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 9l3-6h8l3 6v6H2z"/><path d="M2 9h14"/></svg>
+          <div class="info-item-text">
+            <span class="info-label">Availability</span>
+            <span class="info-value" id="availability"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Colour selector — built dynamically from product.colours -->
+      <div class="option-block">
+        <div class="option-label-row">
+          <span class="option-label">Colour</span>
+          <span class="option-selected" id="selectedColourName"></span>
+        </div>
+        <div class="colour-options" id="colourOptions"></div>
+      </div>
+
+      <!-- Quantity + Add to cart -->
+      <div class="purchase-row">
+        <div class="qty-control">
+          <button class="qty-btn" id="qtyMinus" aria-label="Decrease quantity">−</button>
+          <div class="qty-value" id="qtyValue">1</div>
+          <button class="qty-btn" id="qtyPlus" aria-label="Increase quantity">+</button>
+        </div>
+        <button class="btn-add-cart" id="addCartBtn">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M1 1h2.5l1.6 8h9l1.4-5.5H5"/>
+            <circle cx="7.5" cy="15.5" r="1.5"/>
+            <circle cx="13.5" cy="15.5" r="1.5"/>
+          </svg>
+          Add to Cart
+        </button>
+      </div>
+
+      <p class="stock-hint">Free delivery on orders over <strong>R 500</strong>. <!-- ← EDIT this line as needed --></p>
+
+      <!-- Specs — built dynamically from product.specs -->
+      <div class="specs-block">
+        <div class="specs-title">Product Details</div>
+        <ul class="specs-list" id="specsList"></ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Shown when no matching product is found -->
+  <div class="not-found" id="notFound" style="display:none;">
+    <h2>Product Not Found</h2>
+    <p>We couldn't find a product matching that ID.</p>
+    <a href="index.html#products">← Back to Product List</a>
+  </div>
+
+</div>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+
+  hamburger.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', open);
+  });
+
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', false);
+    });
+  });
+
+  const catalogData = window.ModuForgeCatalogData || { products: [], colourHex: {} };
+  const products = catalogData.products;
+  const COLOUR_HEX = catalogData.colourHex;
+
+  /* ============================================================
+     PAGE LOGIC — no need to edit below this line
+  ============================================================ */
+  function getProductIdFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    const id = parseInt(params.get('id'), 10);
+    return isNaN(id) ? null : id;
+  }
+
+  function findProductById(id) {
+    return products.find(p => p.id === id) || null;
+  }
+
+  function getProductImageForColour(product, colourName) {
+    if (!colourName) {
+      return product.image;
+    }
+
+    const variantImage = product.imageVariants && product.imageVariants[colourName];
+    return variantImage || product.image;
+  }
+
+  function setProductImage(product, colourName) {
+    const imageEl = document.getElementById('productImage');
+    const imageSrc = getProductImageForColour(product, colourName);
+
+    imageEl.src = imageSrc;
+    imageEl.alt = `${product.name}${colourName ? ` - ${colourName}` : ''}`;
+  }
+
+  function setSelectedColourBlock(colourName) {
+    const selected = document.getElementById('selectedColourName');
+
+    if (!colourName) {
+      selected.innerHTML = `<span class="selected-colour-block is-empty">Select a colour</span>`;
+      return;
+    }
+
+    selected.innerHTML = `
+      <span class="selected-colour-block">
+        <span class="selected-colour-dot" style="background:${COLOUR_HEX[colourName] || '#555555'}"></span>
+        <span class="selected-colour-text">Selected: ${colourName}</span>
+      </span>
+    `;
+  }
+
+  function renderColourOptions(product) {
+    const wrap = document.getElementById('colourOptions');
+    wrap.innerHTML = '';
+
+    product.colours.forEach((colourName) => {
+      const hex = COLOUR_HEX[colourName] || '#555555';
+
+      const label = document.createElement('label');
+      label.className = 'colour-option';
+      label.innerHTML = `
+        <input type="radio" name="colour" value="${colourName}" />
+        <span class="colour-swatch"><span class="fill" style="background:${hex}"></span></span>
+        <span class="colour-name">${colourName}</span>
+      `;
+      wrap.appendChild(label);
+    });
+
+    setSelectedColourBlock('');
+
+    wrap.querySelectorAll('input[name="colour"]').forEach(input => {
+      input.addEventListener('change', () => {
+        if (input.checked) {
+          setSelectedColourBlock(input.value);
+          setProductImage(product, input.value);
+          document.getElementById('colourOptions').classList.remove('is-invalid');
+        }
+      });
+    });
+  }
+
+  function renderSpecs(product) {
+    const list = document.getElementById('specsList');
+    list.innerHTML = '';
+    product.specs.forEach(spec => {
+      const li = document.createElement('li');
+      li.textContent = spec;
+      list.appendChild(li);
+    });
+  }
+
+  function renderProduct(product) {
+    document.title = `${product.name} — ModuForge 3D`;
+
+    setProductImage(product, '');
+    document.getElementById('productName').textContent = product.name;
+    document.getElementById('productPrice').textContent = `R ${product.price}`;
+    document.getElementById('productDescription').textContent = product.description;
+    document.getElementById('deliveryTime').textContent = product.delivery;
+
+    const availEl = document.getElementById('availability');
+    const availLower = product.availability.toLowerCase();
+    availEl.textContent = product.availability;
+    availEl.classList.toggle('in-stock', availLower.includes('stock') && !availLower.includes('out'));
+
+    document.getElementById('breadcrumbName').textContent = product.name;
+
+    renderColourOptions(product);
+    renderSpecs(product);
+
+    document.getElementById('productLayout').style.display = 'grid';
+    document.getElementById('notFound').style.display = 'none';
+  }
+
+  function renderNotFound() {
+    document.getElementById('productLayout').style.display = 'none';
+    document.getElementById('notFound').style.display = 'block';
+    document.getElementById('breadcrumbName').textContent = 'Not Found';
+  }
+
+  function setupQuantityStepper() {
+    const qtyValue = document.getElementById('qtyValue');
+    const qtyMinus = document.getElementById('qtyMinus');
+    const qtyPlus  = document.getElementById('qtyPlus');
+    let qty = 1;
+
+    qtyMinus.addEventListener('click', () => { if (qty > 1) { qty--; qtyValue.textContent = qty; } });
+    qtyPlus.addEventListener('click', () => { if (qty < 20) { qty++; qtyValue.textContent = qty; } });
+
+    return () => qty;
+  }
+
+  function setupAddToCart(product, getQty) {
+    const btn = document.getElementById('addCartBtn');
+    btn.addEventListener('click', () => {
+      const colour = document.querySelector('input[name="colour"]:checked')?.value || '';
+    const qty = getQty();
+      const colourOptions = document.getElementById('colourOptions');
+
+      if (!colour) {
+        colourOptions.classList.add('is-invalid');
+        document.getElementById('selectedColourName').innerHTML = `<span class="selected-colour-block is-error">Choose a colour first</span>`;
+        return;
+      }
+
+      const imageSrc = getProductImageForColour(product, colour);
+      ModuForgeCart.addProduct({
+        productId: product.id,
+        name: product.name,
+        image: imageSrc,
+        colour,
+        price: product.price,
+        qty
+      });
+      btn.innerHTML = `✓ Added ${qty} × ${product.name} (${colour})`;
+      btn.style.background = '#33BBFF';
+      setTimeout(() => {
+        btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 1h2.5l1.6 8h9l1.4-5.5H5"/><circle cx="7.5" cy="15.5" r="1.5"/><circle cx="13.5" cy="15.5" r="1.5"/></svg> Add to Cart`;
+        btn.style.background = '';
+      }, 2200);
+    });
+  }
+
+  function init() {
+    const productId = getProductIdFromURL();
+    const product = productId !== null ? findProductById(productId) : null;
+
+    if (product) {
+      renderProduct(product);
+      const getQty = setupQuantityStepper();
+      setupAddToCart(product, getQty);
+    } else {
+      renderNotFound();
+    }
+  }
+
+  init();
+</script>
+</body>
+</html>

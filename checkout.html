@@ -1,0 +1,1594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Checkout — ModuForge 3D</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================================================
+   MODUFORGE 3D — CHECKOUT PAGE
+   Colour palette: --black, --card-bg, --surface, --border,
+   --grey, --light, --white, --blue, --red, --green
+============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black:       #0A0A0A;
+  --card-bg:     #141414;
+  --surface:     #1E1E1E;
+  --border:      #2A2A2A;
+  --border-focus:#00AAFF;
+  --grey:        #888;
+  --light:       #F0F0F0;
+  --white:       #FFFFFF;
+  --blue:        #00AAFF;
+  --blue-dim:    rgba(0,170,255,0.12);
+  --blue-glow:   rgba(0,170,255,0.35);
+  --red:         #D6432F;
+  --green:       #3F8F5E;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--light);
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* ============================================================
+   NAV — matches the rest of the site
+============================================================ */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10,10,10,0.96);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.nav-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.logo-text {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 1.35rem;
+  letter-spacing: 0.06em;
+  color: var(--white);
+  line-height: 1;
+}
+
+.logo-text span { color: var(--blue); }
+
+.nav-links { display: flex; align-items: center; gap: 4px; list-style: none; }
+
+.nav-links a {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--grey);
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 3px;
+  transition: color 0.2s, background 0.2s;
+}
+
+.nav-links a:hover { color: var(--white); background: var(--surface); }
+
+.btn-nav-contact {
+  background: var(--blue);
+  color: var(--black) !important;
+  padding: 8px 18px !important;
+  border-radius: 2px !important;
+  font-weight: 700 !important;
+}
+
+.btn-nav-contact:hover {
+  background: #33BBFF !important;
+  box-shadow: 0 0 20px var(--blue-glow) !important;
+}
+
+.nav-cart-link { position: relative; }
+
+.nav-badge {
+  position: absolute;
+  top: -4px;
+  right: 4px;
+  width: 16px;
+  height: 16px;
+  background: var(--blue);
+  border-radius: 50%;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 6px;
+  border: none;
+  background: none;
+}
+
+.hamburger span { display: block; width: 22px; height: 2px; background: var(--light); }
+
+@media (max-width: 768px) {
+  .nav-links { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: rgba(10,10,10,0.98); border-bottom: 1px solid var(--border); padding: 16px 24px; gap: 4px; }
+  .nav-links.open { display: flex; }
+  .hamburger { display: flex; }
+}
+
+/* ============================================================
+   PROGRESS STEPS
+============================================================ */
+.progress-bar {
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+}
+
+.progress-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  height: 52px;
+  gap: 0;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--grey);
+  flex-shrink: 0;
+}
+
+.step.active { color: var(--blue); }
+.step.done { color: var(--green); }
+
+.step-num {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.step.active .step-num { border-color: var(--blue); background: var(--blue); color: var(--black); }
+.step.done .step-num { border-color: var(--green); background: var(--green); color: var(--black); }
+
+.step-divider { flex: 1; height: 1px; background: var(--border); margin: 0 12px; min-width: 20px; }
+
+/* ============================================================
+   PAGE WRAPPER + LAYOUT
+============================================================ */
+.page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 36px 24px 80px;
+}
+
+.page-eyebrow {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 8px;
+}
+
+.page-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 32px;
+}
+
+.checkout-layout {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 36px;
+  align-items: start;
+}
+
+/* ============================================================
+   FORM SECTIONS — shared card style
+============================================================ */
+.form-section {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.form-section:last-of-type { margin-bottom: 0; }
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.section-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--blue);
+  color: var(--black);
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.section-label {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.section-body { padding: 22px 20px; }
+
+/* ============================================================
+   FORM FIELDS
+============================================================ */
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+.field-row.single { grid-template-columns: 1fr; }
+.field-row.thirds { grid-template-columns: 1fr 1fr 1fr; }
+
+.field-row:last-child { margin-bottom: 0; }
+
+.field { display: flex; flex-direction: column; gap: 5px; }
+
+.field label {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.field label .req { color: var(--blue); margin-left: 2px; }
+
+.field input,
+.field select,
+.field textarea {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  color: var(--light);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  padding: 11px 14px;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px var(--blue-dim);
+}
+
+/* Invalid state — added by JS on submit */
+.field input.invalid,
+.field select.invalid,
+.field textarea.invalid {
+  border-color: var(--red);
+  box-shadow: 0 0 0 3px rgba(214,67,47,0.12);
+}
+
+.field-error {
+  font-size: 0.7rem;
+  color: var(--red);
+  display: none;
+}
+
+.field.has-error .field-error { display: block; }
+.field.has-error input,
+.field.has-error select { border-color: var(--red); box-shadow: 0 0 0 3px rgba(214,67,47,0.12); }
+
+.field select option { background: var(--surface); }
+.field textarea { resize: vertical; min-height: 90px; }
+
+@media (max-width: 620px) {
+  .field-row { grid-template-columns: 1fr; }
+  .field-row.thirds { grid-template-columns: 1fr 1fr; }
+}
+
+/* ============================================================
+   DELIVERY OPTIONS
+============================================================ */
+.delivery-options { display: flex; flex-direction: column; gap: 10px; }
+
+.delivery-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.delivery-option:hover { border-color: var(--blue); }
+.delivery-option.selected { border-color: var(--blue); background: var(--blue-dim); }
+
+.delivery-option input[type="radio"] { display: none; }
+
+.delivery-option-left { display: flex; align-items: center; gap: 12px; }
+
+.radio-circle {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s;
+}
+
+.delivery-option.selected .radio-circle { border-color: var(--blue); }
+
+.radio-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--blue);
+  transform: scale(0);
+  transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+.delivery-option.selected .radio-dot { transform: scale(1); }
+
+.delivery-option-info { display: flex; flex-direction: column; }
+.delivery-option-name { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--white); letter-spacing: 0.02em; }
+.delivery-option-eta { font-size: 0.74rem; color: var(--grey); }
+
+.delivery-option-price {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--blue);
+  white-space: nowrap;
+}
+
+.delivery-option.selected .delivery-option-price { color: var(--blue); }
+
+/* ============================================================
+   PAYMENT PLACEHOLDER
+============================================================ */
+.payment-placeholder {
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  border-radius: 3px;
+  padding: 28px 20px;
+  text-align: center;
+}
+
+.payment-placeholder svg { color: var(--blue); opacity: 0.45; margin-bottom: 12px; }
+
+.payment-placeholder p {
+  font-size: 0.82rem;
+  color: var(--grey);
+  margin-bottom: 6px;
+}
+
+.payment-placeholder strong {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--light);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.payment-logos { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 14px; }
+
+.payment-logo {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 5px 12px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--grey);
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   ORDER SUMMARY SIDEBAR
+============================================================ */
+.sidebar {
+  position: sticky;
+  top: 88px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.summary-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--blue);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.summary-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.summary-header-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.summary-item-count {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--blue);
+}
+
+/* Order line items */
+.order-lines { padding: 14px 18px; display: flex; flex-direction: column; gap: 12px; }
+
+.order-line {
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.order-line-img {
+  width: 48px;
+  height: 48px;
+  border-radius: 3px;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.order-line-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.order-line-info { min-width: 0; }
+.order-line-name { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 0.82rem; color: var(--white); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.order-line-meta { font-size: 0.7rem; color: var(--grey); }
+
+.order-line-controls { display: flex; align-items: center; gap: 4px; }
+
+.bundle-components {
+  border-top: 1px solid var(--border);
+  margin-top: 10px;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.bundle-component {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 0.74rem;
+  color: var(--grey);
+}
+
+.bundle-component-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.bundle-component-name {
+  color: var(--light);
+  font-weight: 500;
+}
+
+.bundle-component-meta {
+  color: var(--grey);
+  font-size: 0.68rem;
+}
+
+.bundle-component-price {
+  color: var(--light);
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.line-qty-btn {
+  width: 22px; height: 22px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  color: var(--light);
+  font-size: 0.8rem;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+
+.line-qty-btn:hover { background: var(--blue); border-color: var(--blue); color: var(--black); }
+
+.line-qty-num {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: var(--white);
+  width: 20px;
+  text-align: center;
+}
+
+.order-line-right { text-align: right; min-width: 60px; }
+.order-line-price {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--blue);
+  white-space: nowrap;
+}
+
+.order-line-remove {
+  font-size: 0.62rem;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--grey);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.15s;
+  display: block;
+  margin-top: 2px;
+}
+
+.order-line-remove:hover { color: var(--red); }
+
+.empty-order {
+  padding: 28px 18px;
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--grey);
+}
+
+/* Summary totals */
+.summary-totals {
+  padding: 14px 18px 18px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.total-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.84rem;
+  color: var(--grey);
+}
+
+.total-line .tv { font-family: 'Rajdhani', sans-serif; font-weight: 600; color: var(--light); }
+.total-line .tv.free { color: var(--green); }
+
+.total-divider { height: 1px; background: var(--border); }
+
+.grand-total-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.grand-total-label {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.grand-total-value {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.grand-total-value span { color: var(--blue); }
+
+/* Delivery hint */
+.delivery-hint-bar {
+  padding: 9px 18px;
+  border-top: 1px solid var(--border);
+  font-size: 0.71rem;
+  color: var(--grey);
+  background: var(--surface);
+  line-height: 1.5;
+}
+
+.delivery-hint-bar strong { color: var(--blue); }
+.delivery-hint-bar.qualified strong { color: var(--green); }
+
+/* ============================================================
+   CHECKOUT BUTTON
+============================================================ */
+.btn-checkout {
+  width: 100%;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: var(--blue);
+  color: var(--black);
+  border: none;
+  border-radius: 3px;
+  padding: 16px 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+
+.btn-checkout:hover { background: #33BBFF; box-shadow: 0 0 28px var(--blue-glow); }
+.btn-checkout:active { transform: scale(0.98); }
+.btn-checkout:disabled { background: var(--surface); color: var(--grey); cursor: not-allowed; box-shadow: none; }
+
+.secure-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 0.7rem;
+  color: var(--grey);
+  margin-top: 10px;
+  text-align: center;
+}
+
+.secure-note svg { color: var(--blue); flex-shrink: 0; }
+
+/* ============================================================
+   VALIDATION TOAST
+============================================================ */
+.toast {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--red);
+  color: var(--white);
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  padding: 12px 24px;
+  border-radius: 3px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s, transform 0.25s;
+  z-index: 999;
+  white-space: nowrap;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width: 840px) {
+  .checkout-layout { grid-template-columns: 1fr; }
+  .sidebar { position: static; }
+}
+
+@media (max-width: 540px) {
+  .progress-inner { gap: 0; }
+  .step span:not(.step-num) { display: none; }
+  .step-divider { margin: 0 6px; }
+  .page { padding: 24px 18px 60px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAV — same structure as all other pages
+============================================================ -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="16,2 30,10 30,22 16,30 2,22 2,10" stroke="#00AAFF" stroke-width="1.5" fill="none"/>
+        <polygon points="16,8 24,12.5 24,19.5 16,24 8,19.5 8,12.5" fill="#00AAFF" opacity="0.18"/>
+        <line x1="16" y1="2" x2="16" y2="30" stroke="#00AAFF" stroke-width="0.75" opacity="0.4"/>
+        <line x1="2" y1="10" x2="30" y2="22" stroke="#00AAFF" stroke-width="0.75" opacity="0.4"/>
+        <line x1="30" y1="10" x2="2" y2="22" stroke="#00AAFF" stroke-width="0.75" opacity="0.4"/>
+        <circle cx="16" cy="16" r="3" fill="#00AAFF"/>
+      </svg>
+      <span class="logo-text">Modu<span>Forge</span> 3D</span>
+    </a>
+
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#products">Products</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li class="nav-cart-link"><a href="cart.html">Cart<span class="nav-badge" id="navBadge">0</span></a></li>
+      <li><a href="modudesk-builder.html">Custom Print</a></li>
+      <li><a href="index.html#contact" class="btn-nav-contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Progress bar -->
+<div class="progress-bar">
+  <div class="progress-inner">
+    <div class="step done">
+      <span class="step-num">✓</span>
+      <span>Cart</span>
+    </div>
+    <div class="step-divider"></div>
+    <div class="step active">
+      <span class="step-num">2</span>
+      <span>Checkout</span>
+    </div>
+    <div class="step-divider"></div>
+    <div class="step">
+      <span class="step-num">3</span>
+      <span>Payment</span>
+    </div>
+    <div class="step-divider"></div>
+    <div class="step">
+      <span class="step-num">4</span>
+      <span>Confirmation</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE
+============================================================ -->
+<div class="page">
+  <p class="page-eyebrow">Almost There</p>
+  <h1 class="page-title">Checkout</h1>
+
+  <div class="checkout-layout">
+
+    <!-- ── LEFT COLUMN — forms ───────────────────────── -->
+    <div id="checkoutForms">
+
+      <!-- 1. Customer Information -->
+      <div class="form-section">
+        <div class="section-header">
+          <span class="section-num">1</span>
+          <span class="section-label">Customer Information</span>
+        </div>
+        <div class="section-body">
+          <div class="field-row">
+            <div class="field" id="field-fullName">
+              <label for="fullName">Full Name <span class="req">*</span></label>
+              <input type="text" id="fullName" name="fullName" placeholder="Jane Nkosi" autocomplete="name" />
+              <span class="field-error">Please enter your full name.</span>
+            </div>
+            <div class="field" id="field-email">
+              <label for="email">Email Address <span class="req">*</span></label>
+              <input type="email" id="email" name="email" placeholder="jane@example.com" autocomplete="email" />
+              <span class="field-error">Please enter a valid email address.</span>
+            </div>
+          </div>
+          <div class="field-row single">
+            <div class="field" id="field-phone">
+              <label for="phone">Phone Number <span class="req">*</span></label>
+              <input type="tel" id="phone" name="phone" placeholder="+27 82 000 0000" autocomplete="tel" />
+              <span class="field-error">Please enter a valid phone number.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Delivery Information -->
+      <div class="form-section">
+        <div class="section-header">
+          <span class="section-num">2</span>
+          <span class="section-label">Delivery Address</span>
+        </div>
+        <div class="section-body">
+          <div class="field-row single">
+            <div class="field" id="field-street">
+              <label for="street">Street Address <span class="req">*</span></label>
+              <input type="text" id="street" name="street" placeholder="12 Example Street" autocomplete="street-address" />
+              <span class="field-error">Please enter your street address.</span>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field" id="field-suburb">
+              <label for="suburb">Suburb <span class="req">*</span></label>
+              <input type="text" id="suburb" name="suburb" placeholder="Sandton" autocomplete="address-level3" />
+              <span class="field-error">Please enter your suburb.</span>
+            </div>
+            <div class="field" id="field-city">
+              <label for="city">City <span class="req">*</span></label>
+              <input type="text" id="city" name="city" placeholder="Johannesburg" autocomplete="address-level2" />
+              <span class="field-error">Please enter your city.</span>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field" id="field-province">
+              <label for="province">Province <span class="req">*</span></label>
+              <select id="province" name="province" autocomplete="address-level1">
+                <option value="">— Select province —</option>
+                <option>Gauteng</option>
+                <option>Western Cape</option>
+                <option>KwaZulu-Natal</option>
+                <option>Eastern Cape</option>
+                <option>Limpopo</option>
+                <option>Mpumalanga</option>
+                <option>North West</option>
+                <option>Northern Cape</option>
+                <option>Free State</option>
+              </select>
+              <span class="field-error">Please select your province.</span>
+            </div>
+            <div class="field" id="field-postalCode">
+              <label for="postalCode">Postal Code <span class="req">*</span></label>
+              <input type="text" id="postalCode" name="postalCode" placeholder="2196" maxlength="4" autocomplete="postal-code" />
+              <span class="field-error">Please enter a valid 4-digit postal code.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Delivery Method -->
+      <div class="form-section">
+        <div class="section-header">
+          <span class="section-num">3</span>
+          <span class="section-label">Delivery Method</span>
+        </div>
+        <div class="section-body">
+          <div class="delivery-options" id="deliveryOptions">
+
+            <!-- ← EDIT: change names, prices and ETAs here or add more options -->
+            <label class="delivery-option selected" data-price="99" data-eta="3–5 business days">
+              <input type="radio" name="delivery" value="standard" checked />
+              <div class="delivery-option-left">
+                <div class="radio-circle"><div class="radio-dot"></div></div>
+                <div class="delivery-option-info">
+                  <span class="delivery-option-name">Standard Courier</span>
+                  <span class="delivery-option-eta">3–5 business days</span>
+                </div>
+              </div>
+              <span class="delivery-option-price">R 99</span>
+            </label>
+
+            <label class="delivery-option" data-price="179" data-eta="1–2 business days">
+              <input type="radio" name="delivery" value="express" />
+              <div class="delivery-option-left">
+                <div class="radio-circle"><div class="radio-dot"></div></div>
+                <div class="delivery-option-info">
+                  <span class="delivery-option-name">Express Delivery</span>
+                  <span class="delivery-option-eta">1–2 business days</span>
+                </div>
+              </div>
+              <span class="delivery-option-price">R 179</span>
+            </label>
+
+            <label class="delivery-option" data-price="0" data-eta="Collect from Johannesburg — by arrangement">
+              <input type="radio" name="delivery" value="collection" />
+              <div class="delivery-option-left">
+                <div class="radio-circle"><div class="radio-dot"></div></div>
+                <div class="delivery-option-info">
+                  <span class="delivery-option-name">Local Collection</span>
+                  <span class="delivery-option-eta">Collect from Johannesburg — by arrangement</span>
+                </div>
+              </div>
+              <span class="delivery-option-price">FREE</span>
+            </label>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Order Notes -->
+      <div class="form-section">
+        <div class="section-header">
+          <span class="section-num">4</span>
+          <span class="section-label">Additional Notes</span>
+        </div>
+        <div class="section-body">
+          <div class="field-row single">
+            <div class="field">
+              <label for="notes">Special Instructions (optional)</label>
+              <textarea id="notes" name="notes" placeholder="Any colour preferences, access instructions, or special requests…"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Payment -->
+      <div class="form-section">
+        <div class="section-header">
+          <span class="section-num">5</span>
+          <span class="section-label">Payment</span>
+        </div>
+        <div class="section-body">
+          <div class="payment-placeholder">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.3">
+              <rect x="4" y="10" width="32" height="22" rx="3"/>
+              <path d="M4 17h32"/>
+              <rect x="9" y="23" width="8" height="4" rx="1"/>
+            </svg>
+            <strong>Payment Gateway</strong>
+            <p>This section will integrate with your payment provider.</p>
+            <p>Cards, EFT, and other methods will appear here.</p>
+            <div class="payment-logos">
+              <!-- ← REPLACE with your actual payment provider badges -->
+              <span class="payment-logo">Visa</span>
+              <span class="payment-logo">Mastercard</span>
+              <span class="payment-logo">EFT</span>
+              <span class="payment-logo">PayFast</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end checkoutForms -->
+
+    <!-- ── RIGHT COLUMN — order summary sidebar ───────── -->
+    <div class="sidebar">
+
+      <!-- Order summary card -->
+      <div class="summary-card">
+        <div class="summary-header">
+          <span class="summary-header-title">Order Summary</span>
+          <span class="summary-item-count" id="summaryItemCount">0 items</span>
+        </div>
+
+        <!-- Line items populated by JS -->
+        <div id="orderLines" class="order-lines"></div>
+
+        <div class="delivery-hint-bar" id="deliveryHintBar" style="display:none;"></div>
+
+        <div class="summary-totals">
+          <div class="total-line">
+            <span>Subtotal</span>
+            <span class="tv" id="summarySubtotal">R 0</span>
+          </div>
+          <div class="total-line">
+            <span>Delivery</span>
+            <span class="tv" id="summaryDelivery">R 99</span>
+          </div>
+          <div class="total-divider"></div>
+          <div class="grand-total-line">
+            <span class="grand-total-label">Total</span>
+            <span class="grand-total-value">R <span id="grandTotal">0</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Checkout button -->
+      <button class="btn-checkout" id="placeOrderBtn" disabled>
+        <svg width="17" height="17" viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="1.8">
+          <rect x="3" y="7" width="11" height="8" rx="1"/>
+          <path d="M5.5 7V5a3 3 0 016 0v2"/>
+        </svg>
+        Place Order
+      </button>
+
+      <div class="secure-note">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="5" width="8" height="6" rx="1"/><path d="M3.5 5V3.5a2.5 2.5 0 015 0V5"/></svg>
+        Your information is encrypted and secure.
+      </div>
+
+    </div>
+
+  </div><!-- end checkout-layout -->
+</div><!-- end page -->
+
+<!-- Validation toast -->
+<div class="toast" id="toast"></div>
+
+
+<!-- ============================================================
+     JAVASCRIPT
+============================================================ -->
+<script>
+/* ============================================================
+   CONFIGURATION  ← EDIT THESE VALUES IF NEEDED
+============================================================ */
+const FREE_DELIVERY_THRESHOLD = 1000; // ← R amount for free delivery to kick in
+const scriptURL = 'https://script.google.com/macros/s/AKfycbyHAIWm3zh-abZivdFdDrbibBoU117a55fSVUjBrIFcWoFISmsqu4rB93WNoiXDtRscgA/exec';
+const ORDER_COUNTER_KEY = 'moduforgeOrderCounter';
+const ORDER_COUNTER_START = 100;
+
+/* Colour name → hex, for the small dot in the order line.
+   Add new colours here if you expand the range. */
+const COLOUR_HEX = {
+  "Black":         "#0A0A0A",
+  "White":         "#F0F0F0",
+  "Grey":          "#888888",
+  "Electric Blue": "#00AAFF"
+};
+
+/* ============================================================
+   CART STATE
+   Read from localStorage (set by cart-utils.js-powered pages).
+   If no cart exists yet, the page shows an empty checkout state.
+
+   localStorage cart item shape:
+   {
+     id:        number  — unique line id
+     productId: number  — product catalogue id
+     name:      string
+     image:     string  — URL or path
+     colour:    string
+     price:     number  — unit price
+     qty:       number
+   }
+============================================================ */
+function loadCart() {
+  try {
+    const stored = localStorage.getItem('moduforgeCart') || localStorage.getItem('moduforge_cart');
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    }
+  } catch (e) {
+    console.warn('Could not read cart from localStorage:', e);
+  }
+
+  return [];
+}
+
+function saveCart() {
+  try {
+    localStorage.setItem('moduforgeCart', JSON.stringify(cart));
+  } catch (e) {
+    console.warn('Could not save cart to localStorage:', e);
+  }
+}
+
+function getCurrentOrderNumber() {
+  try {
+    const stored = parseInt(localStorage.getItem(ORDER_COUNTER_KEY), 10);
+    return Number.isFinite(stored) && stored >= ORDER_COUNTER_START ? stored : ORDER_COUNTER_START;
+  } catch (e) {
+    return ORDER_COUNTER_START;
+  }
+}
+
+function getOrderId() {
+  return `MF-${String(getCurrentOrderNumber()).padStart(5, '0')}`;
+}
+
+function advanceOrderCounter() {
+  try {
+    localStorage.setItem(ORDER_COUNTER_KEY, String(getCurrentOrderNumber() + 1));
+  } catch (e) {
+    console.warn('Could not update order counter in localStorage:', e);
+  }
+}
+
+let cart = loadCart();
+
+/* ============================================================
+   DELIVERY STATE
+   Driven by the radio buttons in the form.
+============================================================ */
+let selectedDelivery = {
+  label: "Standard Courier",
+  price: 99,
+  eta:   "3–5 business days"
+};
+
+/* ============================================================
+   UTILITIES
+============================================================ */
+function fmt(n) {
+  return n.toLocaleString('en-ZA', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+}
+
+function calcSubtotal() {
+  return cart.reduce((s, i) => s + i.price * i.qty, 0);
+}
+
+function calcDeliveryFee() {
+  /* Free delivery overrides the selected method fee */
+  if (calcSubtotal() >= FREE_DELIVERY_THRESHOLD) return 0;
+  return selectedDelivery.price;
+}
+
+function totalItemCount() {
+  return cart.reduce((s, i) => s + i.qty, 0);
+}
+
+function expandCartItemsForOrder(cartItems = cart) {
+  const expanded = [];
+
+  cartItems.forEach(item => {
+    const qty = Number(item.qty) || 1;
+
+    if (item.type === 'bundle' && Array.isArray(item.components) && item.components.length) {
+      item.components.forEach((component, index) => {
+        const unitPrice = Number(component.price) || 0;
+        const componentQty = qty;
+        expanded.push({
+          id: `${item.id}-component-${component.id || index}`,
+          type: 'bundle-component',
+          bundleId: item.bundleId || item.id,
+          bundleName: item.name,
+          bundleColour: item.colour || '',
+          productId: component.id || component.name || `${item.bundleId || item.id}-${index}`,
+          name: component.name || `Component ${index + 1}`,
+          colour: item.colour || '',
+          qty: componentQty,
+          unitPrice,
+          lineTotal: unitPrice * componentQty
+        });
+      });
+      return;
+    }
+
+    const unitPrice = Number(item.price) || 0;
+    expanded.push({
+      id: item.id,
+      type: item.type || 'product',
+      productId: item.productId,
+      name: item.name,
+      colour: item.colour || '',
+      qty,
+      unitPrice,
+      lineTotal: unitPrice * qty
+    });
+  });
+
+  return expanded;
+}
+
+function getExpandedItemCount(cartItems = cart) {
+  return expandCartItemsForOrder(cartItems).reduce((sum, item) => sum + (Number(item.qty) || 0), 0);
+}
+
+/* ============================================================
+   RENDER — ORDER SUMMARY SIDEBAR
+============================================================ */
+function renderOrderLines() {
+  const wrap = document.getElementById('orderLines');
+
+  if (cart.length === 0) {
+    wrap.innerHTML = `<div class="empty-order">Your cart is empty. <a href="index.html#products" style="color:var(--blue);">Browse products →</a></div>`;
+    return;
+  }
+
+  wrap.innerHTML = '';
+
+  cart.forEach(item => {
+    const hex = COLOUR_HEX[item.colour] || '#555';
+    const lineTotal = item.price * item.qty;
+    const componentsHtml = item.type === 'bundle' && Array.isArray(item.components) && item.components.length
+      ? `
+        <div class="bundle-components">
+          ${item.components.map((component, index) => {
+            const componentQty = Number(item.qty) || 1;
+            const componentPrice = Number(component.price) || 0;
+            const componentColour = item.colour || component.colour || 'Standard';
+            return `
+              <div class="bundle-component">
+                <div class="bundle-component-main">
+                  <span class="bundle-component-name">${component.name || `Component ${index + 1}`}</span>
+                  <span class="bundle-component-meta">Qty ${componentQty} • ${componentColour}</span>
+                </div>
+                <span class="bundle-component-price">R ${fmt(componentPrice * componentQty)}</span>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `
+      : '';
+
+    const el = document.createElement('div');
+    el.className = 'order-line';
+    el.dataset.id = item.id;
+
+    el.innerHTML = `
+      <div class="order-line-img">
+        <img src="${item.image}" alt="${item.name}" />
+      </div>
+      <div class="order-line-info">
+        <div class="order-line-name">${item.name}</div>
+        <div class="order-line-meta" style="display:flex;align-items:center;gap:5px;">
+          <span style="width:9px;height:9px;border-radius:50%;background:${hex};border:1px solid var(--border);flex-shrink:0;display:inline-block;"></span>
+          ${item.colour}
+        </div>
+        <div class="order-line-controls" style="margin-top:6px;">
+          <button class="line-qty-btn line-minus" title="Decrease">−</button>
+          <span class="line-qty-num">${item.qty}</span>
+          <button class="line-qty-btn line-plus" title="Increase">+</button>
+        </div>
+        ${componentsHtml}
+      </div>
+      <div class="order-line-right">
+        <div class="order-line-price">R ${fmt(lineTotal)}</div>
+        <div style="font-size:0.68rem;color:var(--grey);">R ${fmt(item.price)} ea</div>
+        <button class="order-line-remove">Remove</button>
+      </div>
+    `;
+
+    el.querySelector('.line-minus').addEventListener('click', () => {
+      if (item.qty > 1) { item.qty--; } else { cart = cart.filter(c => c.id !== item.id); }
+      saveCart();
+      renderAll();
+    });
+
+    el.querySelector('.line-plus').addEventListener('click', () => {
+      item.qty++;
+      saveCart();
+      renderAll();
+    });
+
+    el.querySelector('.order-line-remove').addEventListener('click', () => {
+      cart = cart.filter(c => c.id !== item.id);
+      saveCart();
+      renderAll();
+    });
+
+    wrap.appendChild(el);
+  });
+}
+
+function renderTotals() {
+  const subtotal = calcSubtotal();
+  const deliveryFee = calcDeliveryFee();
+  const grand = subtotal + deliveryFee;
+  const totalItems = getExpandedItemCount();
+
+  document.getElementById('summaryItemCount').textContent =
+    `${totalItems} item${totalItems !== 1 ? 's' : ''}`;
+
+  document.getElementById('summarySubtotal').textContent = `R ${fmt(subtotal)}`;
+
+  const delivEl = document.getElementById('summaryDelivery');
+  if (deliveryFee === 0 && subtotal > 0) {
+    delivEl.textContent = 'FREE';
+    delivEl.classList.add('free');
+  } else {
+    delivEl.textContent = `R ${fmt(deliveryFee)}`;
+    delivEl.classList.remove('free');
+  }
+
+  document.getElementById('grandTotal').textContent = fmt(grand);
+
+  /* Delivery hint bar */
+  const hintBar = document.getElementById('deliveryHintBar');
+  if (subtotal === 0) {
+    hintBar.style.display = 'none';
+  } else if (subtotal >= FREE_DELIVERY_THRESHOLD) {
+    hintBar.style.display = '';
+    hintBar.classList.add('qualified');
+    hintBar.innerHTML = '<strong>✓ Free delivery unlocked</strong> on this order.';
+  } else {
+    hintBar.style.display = '';
+    hintBar.classList.remove('qualified');
+    const remaining = FREE_DELIVERY_THRESHOLD - subtotal;
+    hintBar.innerHTML = `Add <strong>R ${fmt(remaining)}</strong> more for free delivery.`;
+  }
+
+  /* Disable checkout if cart empty */
+  document.getElementById('placeOrderBtn').disabled = cart.length === 0;
+
+  /* Nav badge */
+  document.getElementById('navBadge').textContent = totalItems;
+}
+
+function renderAll() {
+  renderOrderLines();
+  renderTotals();
+}
+
+/* ============================================================
+   DELIVERY OPTION SELECTION
+============================================================ */
+function initDeliveryOptions() {
+  const options = document.querySelectorAll('.delivery-option');
+
+  options.forEach(opt => {
+    opt.addEventListener('click', () => {
+      options.forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+      opt.querySelector('input[type="radio"]').checked = true;
+
+      selectedDelivery = {
+        label: opt.querySelector('.delivery-option-name').textContent,
+        price: parseInt(opt.dataset.price, 10),
+        eta:   opt.dataset.eta
+      };
+
+      renderTotals();
+    });
+  });
+}
+
+/* ============================================================
+   FORM VALIDATION
+   Returns true if all required fields are valid.
+   Marks fields with .has-error if not.
+============================================================ */
+const REQUIRED_FIELDS = [
+  { id: 'fullName',   validate: v => v.trim().split(' ').length >= 2 },
+  { id: 'email',      validate: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) },
+  { id: 'phone',      validate: v => v.trim().replace(/\D/g, '').length >= 9 },
+  { id: 'street',     validate: v => v.trim().length >= 4 },
+  { id: 'suburb',     validate: v => v.trim().length >= 2 },
+  { id: 'city',       validate: v => v.trim().length >= 2 },
+  { id: 'province',   validate: v => v !== '' },
+  { id: 'postalCode', validate: v => /^\d{4}$/.test(v.trim()) }
+];
+
+function validateForm() {
+  let valid = true;
+
+  REQUIRED_FIELDS.forEach(({ id, validate }) => {
+    const fieldWrap = document.getElementById(`field-${id}`);
+    const el = document.getElementById(id);
+    if (!fieldWrap || !el) return;
+
+    if (validate(el.value)) {
+      fieldWrap.classList.remove('has-error');
+    } else {
+      fieldWrap.classList.add('has-error');
+      valid = false;
+    }
+  });
+
+  return valid;
+}
+
+/* Clear error state on input */
+function initFieldListeners() {
+  REQUIRED_FIELDS.forEach(({ id }) => {
+    const el = document.getElementById(id);
+    const wrap = document.getElementById(`field-${id}`);
+    if (!el || !wrap) return;
+    el.addEventListener('input', () => wrap.classList.remove('has-error'));
+    el.addEventListener('change', () => wrap.classList.remove('has-error'));
+  });
+}
+
+/* ============================================================
+   TOAST NOTIFICATION
+============================================================ */
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+/* ============================================================
+   BUILD ORDER PAYLOAD
+   This object is ready to send to a backend API or payment
+   gateway when you integrate one. Log it for now.
+============================================================ */
+function buildOrderPayload() {
+  const expandedItems = expandCartItemsForOrder();
+
+  return {
+    customer: {
+      fullName:   document.getElementById('fullName').value.trim(),
+      email:      document.getElementById('email').value.trim(),
+      phone:      document.getElementById('phone').value.trim()
+    },
+    delivery: {
+      street:     document.getElementById('street').value.trim(),
+      suburb:     document.getElementById('suburb').value.trim(),
+      city:       document.getElementById('city').value.trim(),
+      province:   document.getElementById('province').value,
+      postalCode: document.getElementById('postalCode').value.trim(),
+      method:     selectedDelivery.label,
+      eta:        selectedDelivery.eta,
+      fee:        calcDeliveryFee()
+    },
+    notes:      document.getElementById('notes').value.trim(),
+    items:      expandedItems,
+    subtotal:   calcSubtotal(),
+    total:      calcSubtotal() + calcDeliveryFee(),
+    currency:   'ZAR',
+    createdAt:  new Date().toISOString()
+  };
+}
+
+/* ============================================================
+   CHECKOUT BUTTON
+============================================================ */
+document.getElementById('placeOrderBtn').addEventListener('click', async () => {
+  if (cart.length === 0) {
+    showToast('Your cart is empty.');
+    return;
+  }
+
+  if (!validateForm()) {
+    showToast('Please fill in all required fields before continuing.');
+    const firstErr = document.querySelector('.has-error');
+    if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+
+  // Build the order object from the existing checkout payload so the builder components can be expanded cleanly.
+  const payload = buildOrderPayload();
+  const orderId = getOrderId();
+
+  const order = {
+    orderId: orderId,
+    name: payload.customer.fullName,
+    email: payload.customer.email,
+    phone: payload.customer.phone,
+    address: [
+      payload.delivery.street,
+      payload.delivery.suburb,
+      payload.delivery.city,
+      payload.delivery.province,
+      payload.delivery.postalCode
+    ].filter(Boolean).join(', '),
+    products: payload.items,
+    subtotal: payload.subtotal,
+    deliveryFee: payload.delivery.fee,
+    total: payload.total,
+    deliveryMethod: payload.delivery.method,
+    notes: payload.notes
+  };
+
+  const btn = document.getElementById('placeOrderBtn');
+  const originalLabel = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = 'Submitting...';
+
+  try {
+    await fetch(scriptURL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8'
+      },
+      body: JSON.stringify(order)
+    });
+
+    localStorage.removeItem('moduforgeCart');
+    localStorage.removeItem('moduforge_cart');
+    advanceOrderCounter();
+    ModuForgeCart.saveCart([]);
+    window.location.href = 'thankyou.html';
+  } catch (error) {
+    console.error('Error:', error);
+    showToast('Something went wrong. Please try again.');
+    btn.disabled = false;
+    btn.innerHTML = originalLabel;
+  }
+});
+
+/* ============================================================
+   MOBILE NAV
+============================================================ */
+const hamburger = document.getElementById('hamburger');
+const navLinks  = document.getElementById('navLinks');
+hamburger.addEventListener('click', () => {
+  const open = navLinks.classList.toggle('open');
+  hamburger.setAttribute('aria-expanded', String(open));
+});
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  navLinks.classList.remove('open');
+  hamburger.setAttribute('aria-expanded', 'false');
+}));
+
+/* ============================================================
+   INIT
+============================================================ */
+initDeliveryOptions();
+initFieldListeners();
+renderAll();
+</script>
+</body>
+</html>

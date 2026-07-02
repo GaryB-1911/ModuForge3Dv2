@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ModuForge 3D — Precision Printed Products</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script src="cart-utils.js"></script>
+  <script src="catalog-data.js"></script>
+<link rel="stylesheet" href="moduforge-styles.css" />
+</head>
+<body class="mf-home">
+
+<!-- ── NAV ──────────────────────────────────────────── -->
+<nav id="top">
+  <div class="nav-inner">
+    <a href="#top" class="logo" aria-label="ModuForge 3D home">
+      <div class="logo-mark">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="16,2 30,10 30,22 16,30 2,22 2,10" stroke="#00AAFF" stroke-width="1.5" fill="none"/>
+          <polygon points="16,8 24,12.5 24,19.5 16,24 8,19.5 8,12.5" fill="#00AAFF" opacity="0.18"/>
+          <line x1="16" y1="2" x2="16" y2="30" stroke="#00AAFF" stroke-width="0.75" opacity="0.4"/>
+          <line x1="2" y1="10" x2="30" y2="22" stroke="#00AAFF" stroke-width="0.75" opacity="0.4"/>
+          <line x1="30" y1="10" x2="2" y2="22" stroke="#00AAFF" stroke-width="0.75" opacity="0.4"/>
+          <circle cx="16" cy="16" r="3" fill="#00AAFF"/>
+        </svg>
+      </div>
+      <span class="logo-text">Modu<span>Forge</span> 3D</span>
+    </a>
+
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks" role="navigation">
+      <li><a href="#products">Products</a></li>
+      <li><a href="#about">About</a></li>
+      <li class="nav-cart"><a href="cart.html" aria-label="Cart">Cart<span class="cart-badge">0</span></a></li>
+      <li><a href="#contact">Custom Print</a></li>
+      <li><a href="#contact" class="btn-contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── CAROUSEL ──────────────────────────────────────── -->
+<div class="carousel-section" role="region" aria-label="Featured products carousel">
+  <div class="carousel-track" id="carouselTrack">
+
+    <div class="carousel-slide">
+      <div class="slide-placeholder">
+        <svg class="slide-icon" width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="6" y="6" width="36" height="28" rx="2"/>
+          <circle cx="18" cy="20" r="5"/>
+          <path d="M6 34l10-10 6 6 8-10 12 14"/>
+        </svg>
+        <p><img src="images/gaming desk.png" alt="Description of the image"></p>
+      </div>
+      <div class="slide-label">Precision <span>Engineered</span> — </div>
+    </div>
+
+    <div class="carousel-slide">
+      <div class="slide-placeholder">
+        <svg class="slide-icon" width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="6" y="6" width="36" height="28" rx="2"/>
+          <circle cx="18" cy="20" r="5"/>
+          <path d="M6 34l10-10 6 6 8-10 12 14"/>
+        </svg>
+        <p><img src="images/carousel/office_maxi.png" alt="Description of the image"></p>
+      </div>
+      <div class="slide-label">Desktop <span>Organised.</span> Life Simplified.</div>
+    </div>
+
+    <div class="carousel-slide">
+      <div class="slide-placeholder">
+        <svg class="slide-icon" width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="6" y="6" width="36" height="28" rx="2"/>
+          <circle cx="18" cy="20" r="5"/>
+          <path d="M6 34l10-10 6 6 8-10 12 14"/>
+        </svg>
+        <p><img src="images/ny5mn.jpg" alt="Description of the image"></p>
+      </div>
+      <div class="slide-label">Custom <span>Prints</span> — Your Design, Our Machine</div>
+    </div>
+
+  </div>
+
+  <button class="carousel-btn prev" id="prevBtn" aria-label="Previous slide">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="10,2 4,8 10,14"/></svg>
+  </button>
+  <button class="carousel-btn next" id="nextBtn" aria-label="Next slide">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,2 12,8 6,14"/></svg>
+  </button>
+
+  <div class="carousel-dots" id="carouselDots" role="tablist">
+    <div class="dot active" role="tab" data-index="0" aria-label="Slide 1"></div>
+    <div class="dot" role="tab" data-index="1" aria-label="Slide 2"></div>
+    <div class="dot" role="tab" data-index="2" aria-label="Slide 3"></div>
+  </div>
+</div>
+
+<!-- ── PRODUCTS ────────────────────────────────────────── -->
+<section id="products">
+  <div class="section-inner">
+    <p class="section-eyebrow">Our Range</p>
+    <h2 class="section-title">ModuDesk Organisers</h2>
+    <div class="section-divider"></div>
+
+    <div class="products-grid">
+
+      <!-- Maxi ModuDesk-->
+      <div class="product-card">
+        <div class="product-img">
+          <div class="img-placeholder">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="4" y="4" width="32" height="24" rx="2"/><circle cx="14" cy="16" r="4"/><path d="M4 28l8-8 5 5 7-8 10 11"/></svg>
+            <span><img src="images/gaming 1.png" alt="Description of the image"></span>
+          </div>
+          <span class="product-tag">Bestseller</span>
+        </div>
+        <div class="product-body">
+          <div class="product-name">Maxi-ModuDesk</div>
+          <p class="product-desc">Clean, minimal stand designed for your Office and Gamning set up. Customizable. Attachements Available in matte black or white.</p>
+          <p class="product-desc">(Height)82cm X (Width)198cm</p>
+          <div class="product-footer">
+            <div>
+              <div class="product-price">From R499</div>
+              <div class="price-note">Free delivery over R699</div>
+            </div>
+            <!-- <button class="btn-add">add to cart</button> -->
+             <a href="modudesk-builder_maxi.html" class="view_more">View More</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mini ModuDesk-->
+      <div class="product-card">
+        <div class="product-img">
+          <div class="img-placeholder">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="4" y="4" width="32" height="24" rx="2"/><circle cx="14" cy="16" r="4"/><path d="M4 28l8-8 5 5 7-8 10 11"/></svg>
+            <span><img src="images/office 1.png" alt="Office Set Up"></span>
+          </div>
+        </div>
+        <div class="product-body">
+          <div class="product-name">Mini-ModuDesk</div>
+          <p class="product-desc">Clean, minimal stand designed for your Office and Gamning set up. Customizable. Attachements Available in matte black or white.</p>
+          <p class="product-desc">(Height)70cm X (Width)164cm</p>
+          <div class="product-footer">
+            <div>
+              <div class="product-price">From R399</div>
+              <div class="price-note">Free Delivery Over R699</div>
+            </div>
+            <!-- <button class="btn-add">add to cart</button> -->
+             <a href="modudesk-builder_mini.html" class="view_more">View More</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 3 List-->
+      <!-- <div class="product-card">
+        <div class="product-img">
+          <div class="img-placeholder">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="4" y="4" width="32" height="24" rx="2"/><circle cx="14" cy="16" r="4"/><path d="M4 28l8-8 5 5 7-8 10 11"/></svg>
+            <span><img src="images/ny5mn.jpg" alt=""></span>
+          </div>
+          <span class="product-tag">New</span>
+        </div>
+        <div class="product-body">
+          <div class="product-name">More Products</div>
+          <p class="product-desc">For you Office and Gaming Needs</p>
+          <div class="product-footer">
+            <div>
+              <div class="product-price">From R99</div>
+              <div class="price-note">Explore More Products</div>
+            </div>
+             <a href="#catalogue" class="view_more">View Product</a>
+          </div>
+        </div>
+      </div> -->
+      <br>
+    </div>
+
+    <div id="catalogue" class="catalogue-block">
+      <p class="section-eyebrow"></p>
+      <h3 class="section-title">More Products</h3>
+      <div class="section-divider"></div>
+      <div class="products-grid" id="catalogueGrid"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT ─────────────────────────────────────────── -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-text">
+        <p class="section-eyebrow">Who We Are</p>
+        <h2 class="section-title">Built in South Africa.<br/>Layer by Layer.</h2>
+        <div class="section-divider"></div>
+        <p>ModuForge 3D is a small-batch, locally owned studio specialising in <strong>functional FDM prints</strong> designed for real-world desk and home use. Every product is tested in-house before it ships.</p>
+        <p>We use high-quality PLA+ and PETG filaments, precision-tuned for dimensional accuracy. No warping, no rough edges — just clean, repeatable parts that last.</p>
+        <p>Can't find what you need? Our <strong>Custom Print service</strong> lets you supply a design file or brief, and we'll handle the rest.</p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card">
+          <div class="stat-num">200+</div>
+          <div class="stat-label">Orders Fulfilled</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">0.2mm</div>
+          <div class="stat-label">Layer Precision</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">PLA+</div>
+          <div class="stat-label">Premium Filament</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">3–5</div>
+          <div class="stat-label">Day Turnaround</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ───────────────────────────────────────── -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <p class="section-eyebrow">Get in Touch</p>
+        <h2 class="section-title">Custom Print<br/>Request</h2>
+        <div class="section-divider"></div>
+        <h3>Have a design in mind?</h3>
+        <p>Send us your STL file, sketch, or just a description — we'll quote you within 24 hours and walk you through material and colour options.</p>
+        <div class="contact-detail">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4l6 5 6-5M2 4h12v9a1 1 0 01-1 1H3a1 1 0 01-1-1V4z"/></svg>
+          hello@moduforge3d.co.za
+        </div>
+        <div class="contact-detail">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 2a1 1 0 011-1h2.5l1 3-1.5 1a8 8 0 004 4l1-1.5 3 1V13a1 1 0 01-1 1C6 14 2 10 2 5a3 3 0 011-3z"/></svg>
+          +27 (0)82 000 0000
+        </div>
+        <div class="contact-detail">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><polyline points="8,4 8,8 11,10"/></svg>
+          Mon – Fri, 08:00 – 17:00 SAST
+        </div>
+      </div>
+
+      <div>
+        <form id="contactForm" novalidate>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="fname">First Name</label>
+              <input type="text" id="fname" name="fname" placeholder="Liam" required />
+            </div>
+            <div class="form-group">
+              <label for="lname">Last Name</label>
+              <input type="text" id="lname" name="lname" placeholder="Nkosi" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="you@example.com" required />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone (optional)</label>
+              <input type="tel" id="phone" name="phone" placeholder="+27 82 000 0000" />
+            </div>
+            <div class="form-group full">
+              <label for="printtype">Print Type</label>
+              <select id="printtype" name="printtype">
+                <option value="">— Select a category —</option>
+                <option>Desk / Office Accessory</option>
+                <option>Home Organiser</option>
+                <option>Replacement Part</option>
+                <option>Prototype / Concept</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label for="message">Tell Us About Your Project</label>
+              <textarea id="message" name="message" placeholder="Describe what you need — dimensions, quantity, material preferences, deadline…"></textarea>
+            </div>
+          </div>
+          <button type="submit" class="btn-submit">Send Request →</button>
+          <div class="form-success" id="formSuccess">
+            ✓ &nbsp; Request received — we'll be in touch within 24 hours.
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script> 
+  const catalogueData = window.ModuForgeCatalogData || { products: [], colourHex: {} };
+  let COLOUR_HEX = catalogueData.colourHex || {};
+
+  function getProductImageForColour(product, colourName) {
+    if (!colourName) {
+      return product.image;
+    }
+
+    const variantImage = product.imageVariants && product.imageVariants[colourName];
+    return variantImage || product.image;
+  }
+
+  function createCatalogueCard(product) {
+    const card = document.createElement('div');
+    card.className = 'product-card';
+    card.tabIndex = 0;
+    const detailUrl = `product-detail.html?id=${product.id}`;
+    const colourOptions = product.colours.map((colour, index) => {
+      const hex = COLOUR_HEX[colour] || '#555555';
+      return `
+        <label class="card-colour-option" title="${colour}">
+          <input type="radio" name="colour-${product.id}" value="${colour}" />
+          <span class="card-colour-swatch" style="background:${hex}"></span>
+        </label>
+      `;
+    }).join('');
+    const initialImageSrc = getProductImageForColour(product, '');
+
+    card.innerHTML = `
+      <div class="product-img">
+        <img src="${initialImageSrc}" alt="${product.name}" />
+      </div>
+      <div class="product-body">
+        <div class="product-name">${product.name}</div>
+        <p class="product-desc">${product.description}</p>
+        <div class="product-price">R ${product.price}</div>
+        <div class="card-colour">
+          <span>Colour</span>
+          <div class="card-colour-options" role="radiogroup" aria-label="Colour options">
+            ${colourOptions}
+          </div>
+        </div>
+        <div class="card-colour-error" aria-live="polite"></div>
+        <div class="selected-colour-block" hidden>
+          <span class="selected-colour-dot"></span>
+          <span class="selected-colour-text"></span>
+        </div>
+        <div class="card-actions">
+          <a href="${detailUrl}" class="btn-view" role="button">View Product</a>
+          <button class="btn-add-cart" type="button">Add to Cart</button>
+        </div>
+      </div>
+    `;
+
+    card.querySelector('.btn-add-cart').addEventListener('click', event => {
+      event.preventDefault();
+      event.stopPropagation();
+      const colourSelect = card.querySelector('input[name="colour-' + product.id + '"]:checked');
+      const colourError = card.querySelector('.card-colour-error');
+      const colour = colourSelect?.value || '';
+      const selectedImageSrc = getProductImageForColour(product, colour);
+
+      if (!colour) {
+        colourError.textContent = 'Please select a colour first.';
+        const firstSwatch = card.querySelector('input[name="colour-' + product.id + '"]');
+        firstSwatch?.focus();
+        return;
+      }
+
+      colourError.textContent = '';
+      ModuForgeCart.addProduct({
+        productId: product.id,
+        name: product.name,
+        image: selectedImageSrc,
+        colour,
+        price: product.price,
+        qty: 1
+      });
+      event.currentTarget.textContent = 'Added';
+      setTimeout(() => { event.currentTarget.textContent = 'Add to Cart'; }, 1400);
+    });
+
+    card.querySelectorAll(`input[name="colour-${product.id}"]`).forEach(input => {
+      input.addEventListener('change', event => {
+        event.stopPropagation();
+        const colour = event.currentTarget.value;
+        const selectedBlock = card.querySelector('.selected-colour-block');
+        const selectedDot = card.querySelector('.selected-colour-dot');
+        const selectedText = card.querySelector('.selected-colour-text');
+        const imageEl = card.querySelector('.product-img img');
+        card.querySelector('.card-colour-error').textContent = '';
+        if (colour) {
+          const imageSrc = getProductImageForColour(product, colour);
+          selectedDot.style.background = COLOUR_HEX[colour] || '#555555';
+          selectedText.textContent = `Selected: ${colour}`;
+          selectedBlock.hidden = false;
+          imageEl.src = imageSrc;
+          imageEl.alt = `${product.name} - ${colour}`;
+        } else {
+          selectedBlock.hidden = true;
+          imageEl.src = initialImageSrc;
+          imageEl.alt = product.name;
+        }
+      });
+    });
+
+    return card;
+  }
+
+  async function renderCatalogue() {
+    const catalogueGrid = document.getElementById('catalogueGrid');
+
+    try {
+      catalogueGrid.innerHTML = '';
+      (catalogueData.products || []).forEach(product => {
+        catalogueGrid.appendChild(createCatalogueCard(product));
+      });
+    } catch (error) {
+      console.error(error);
+      catalogueGrid.innerHTML = '<p style="color: var(--grey);">Products are temporarily unavailable.</p>';
+    }
+  }
+
+  renderCatalogue();
+</script>
+
+<style>
+  .featured-products-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px;
+    align-items: stretch;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+
+  .featured-products-grid .product-card {
+    min-height: 100%;
+  }
+
+  .featured-products-grid .product-body {
+    align-items: stretch;
+  }
+
+  .featured-products-grid .card-actions,
+  .catalogue-block .card-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 14px;
+    padding: 12px;
+    border: 1px solid rgba(0, 170, 255, 0.18);
+    border-radius: 6px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.015));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  }
+
+  .featured-products-grid .btn-view,
+  .featured-products-grid .btn-add-cart,
+  .catalogue-block .btn-view,
+  .catalogue-block .btn-add-cart {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    width: 100%;
+    border-radius: 4px;
+    text-decoration: none;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 0.74rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .featured-products-grid .btn-view,
+  .catalogue-block .btn-view {
+    background: linear-gradient(180deg, #00b7ff, #009be0);
+    color: var(--black);
+    border: 1px solid rgba(0, 170, 255, 0.85);
+    box-shadow: 0 0 0 1px rgba(0, 170, 255, 0.08);
+  }
+
+  .featured-products-grid .btn-view:hover,
+  .catalogue-block .btn-view:hover {
+    background: linear-gradient(180deg, #33bbff, #00a5eb);
+    box-shadow: 0 0 16px var(--blue-glow);
+    transform: translateY(-1px);
+  }
+
+  .featured-products-grid .btn-add-cart,
+  .catalogue-block .btn-add-cart {
+    background: rgba(255, 255, 255, 0.02);
+    color: var(--light);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .featured-products-grid .btn-add-cart:hover,
+  .catalogue-block .btn-add-cart:hover {
+    border-color: var(--blue);
+    color: var(--blue);
+    transform: translateY(-1px);
+  }
+
+  .featured-products-grid .card-colour {
+    margin-top: 2px;
+  }
+
+  .featured-products-grid .card-colour > span,
+  .catalogue-block .card-colour > span {
+    display: block;
+    margin-bottom: 8px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--grey);
+  }
+
+  .featured-products-grid .card-colour-options,
+  .catalogue-block .card-colour-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .featured-products-grid .card-colour-option,
+  .catalogue-block .card-colour-option {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+  }
+
+  .featured-products-grid .card-colour-option input,
+  .catalogue-block .card-colour-option input {
+    position: absolute;
+    opacity: 0;
+    inset: 0;
+    margin: 0;
+    cursor: pointer;
+  }
+
+  .featured-products-grid .card-colour-swatch,
+  .catalogue-block .card-colour-swatch {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.16);
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .featured-products-grid .card-colour-option input:checked + .card-colour-swatch,
+  .catalogue-block .card-colour-option input:checked + .card-colour-swatch {
+    transform: scale(1.08);
+    box-shadow: 0 0 0 2px var(--blue), inset 0 0 0 1px rgba(0,0,0,0.2);
+  }
+
+  .featured-products-grid .card-colour-option:focus-within .card-colour-swatch,
+  .catalogue-block .card-colour-option:focus-within .card-colour-swatch {
+    box-shadow: 0 0 0 2px var(--blue), inset 0 0 0 1px rgba(0,0,0,0.2);
+  }
+
+  .featured-products-grid .selected-colour-block {
+    margin-bottom: 2px;
+  }
+
+  .featured-products-grid .card-colour-error {
+    min-height: 1.1em;
+  }
+
+  .catalogue-block {
+    margin-top: 72px;
+  }
+
+  .catalogue-block .section-title,
+  .catalogue-block .section-eyebrow {
+    text-align: center;
+  }
+
+  .catalogue-block .section-divider {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #catalogueGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (max-width: 768px) {
+    .featured-products-grid {
+      grid-template-columns: 1fr;
+      max-width: 560px;
+    }
+
+    .featured-products-grid .card-actions,
+    .catalogue-block .card-actions {
+      grid-template-columns: 1fr;
+    }
+
+    #catalogueGrid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<!-- ── FOOTER ─────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <span class="footer-copy">© 2025 ModuForge 3D — Johannesburg, South Africa</span>
+    <ul class="footer-links">
+      <li><a href="#">Privacy Policy</a></li>
+      <li><a href="#">Shipping Info</a></li>
+      <li><a href="#">Returns</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</footer>
+
+<!-- ── SCRIPTS ─────────────────────────────────────────── -->
+<script>
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const navLinks  = document.getElementById('navLinks');
+
+  hamburger.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', open);
+  });
+
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', false);
+    });
+  });
+
+  // Carousel
+  const track  = document.getElementById('carouselTrack');
+  const dots   = document.querySelectorAll('.dot');
+  const total  = dots.length;
+  let current  = 0;
+  let autoTimer;
+
+  function goTo(n) {
+    current = (n + total) % total;
+    track.style.transform = `translateX(-${current * 100}%)`;
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+  }
+
+  function startAuto() {
+    autoTimer = setInterval(() => goTo(current + 1), 4500);
+  }
+
+  function resetAuto() {
+    clearInterval(autoTimer);
+    startAuto();
+  }
+
+  document.getElementById('prevBtn').addEventListener('click', () => { goTo(current - 1); resetAuto(); });
+  document.getElementById('nextBtn').addEventListener('click', () => { goTo(current + 1); resetAuto(); });
+  dots.forEach(d => d.addEventListener('click', () => { goTo(+d.dataset.index); resetAuto(); }));
+
+  startAuto();
+
+  // Pause on hover
+  const carousel = document.querySelector('.carousel-section');
+  carousel.addEventListener('mouseenter', () => clearInterval(autoTimer));
+  carousel.addEventListener('mouseleave', startAuto);
+
+  // Cart counter
+  ModuForgeCart.updateBadges();
+
+  document.querySelectorAll('.btn-add').forEach(btn => {
+    btn.addEventListener('click', () => {
+      ModuForgeCart.updateBadges();
+      btn.textContent = '✓ Added';
+      btn.style.background = 'var(--blue)';
+      btn.style.color = 'var(--black)';
+      setTimeout(() => {
+        btn.textContent = 'Add to Cart';
+        btn.style.background = '';
+        btn.style.color = '';
+      }, 1800);
+    });
+  });
+
+  // Fix "Order Now" revert text
+  document.querySelectorAll('.btn-add').forEach(btn => {
+    const orig = btn.textContent;
+    btn.addEventListener('click', function() {
+      setTimeout(() => { this.textContent = orig; }, 1800);
+    });
+  });
+
+  // Contact form
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const success = document.getElementById('formSuccess');
+    success.style.display = 'block';
+    this.reset();
+    setTimeout(() => { success.style.display = 'none'; }, 6000);
+  });
+</script>
+</body>
+</html>

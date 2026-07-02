@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Your Cart — ModuForge 3D</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+<script src="cart-utils.js"></script>
+<link rel="stylesheet" href="moduforge-styles.css" />
+</head>
+<body class="mf-cart">
+
+<!-- ── NAV ──────────────────────────────────────────── -->
+<nav id="top">
+  <div class="nav-inner">
+    <a href="index.html" class="logo" aria-label="ModuForge 3D home">
+      <div class="logo-mark">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="16,2 30,10 30,22 16,30 2,22 2,10" stroke="#00AAFF" stroke-width="1.5" fill="none"/>
+          <polygon points="16,8 24,12.5 24,19.5 16,24 8,19.5 8,12.5" fill="#00AAFF" opacity="0.18"/>
+          <line x1="16" y1="2" x2="16" y2="30" stroke="#00AAFF" stroke-width="0.75" opacity="0.4"/>
+          <line x1="2" y1="10" x2="30" y2="22" stroke="#00AAFF" stroke-width="0.75" opacity="0.4"/>
+          <line x1="30" y1="10" x2="2" y2="22" stroke="#00AAFF" stroke-width="0.75" opacity="0.4"/>
+          <circle cx="16" cy="16" r="3" fill="#00AAFF"/>
+        </svg>
+      </div>
+      <span class="logo-text">Modu<span>Forge</span> 3D</span>
+    </a>
+
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks" role="navigation">
+      <li><a href="index.html#products">Products</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li class="nav-cart"><a href="cart.html" aria-label="Cart">Cart<span class="cart-badge" id="navCartBadge">0</span></a></li>
+      <li><a href="modudesk-builder.html">Custom Print</a></li>
+      <li><a href="index.html#contact" class="btn-contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── PAGE ─────────────────────────────────────────── -->
+<div class="page">
+
+  <div class="page-header">
+    <p class="eyebrow">Review Your Order</p>
+    <h1 class="page-title">Your Cart</h1>
+  </div>
+
+  <div class="cart-layout">
+
+    <!-- Items -->
+    <div id="cartItemsWrap">
+      <div class="cart-items" id="cartItems"></div>
+    </div>
+
+    <!-- Summary -->
+    <div class="summary-card">
+      <div class="summary-title">Order Summary</div>
+
+      <div class="summary-line">
+        <span>Subtotal</span>
+        <span class="val" id="summarySubtotal">R 0</span>
+      </div>
+      <div class="summary-line">
+        <span>Delivery Fee</span>
+        <span class="val" id="summaryDelivery">R 99</span>
+      </div>
+
+      <div class="delivery-hint" id="deliveryHint">
+        Add <strong id="deliveryRemaining">R 1,000</strong> more to qualify for <strong>free delivery</strong>.
+      </div>
+
+      <div class="summary-divider"></div>
+
+      <div class="summary-total-row">
+        <span class="summary-total-label">Total</span>
+        <span class="summary-total-amount">R <span id="summaryTotal">0</span></span>
+      </div>
+
+      <button class="btn-checkout" id="checkoutBtn" >
+        <svg width="17" height="17" viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 1h2.5l1.6 7.5h8.5l1.3-5H4.6"/><circle cx="6.5" cy="14.5" r="1.3"/><circle cx="12" cy="14.5" r="1.3"/></svg>
+        Checkout
+      </button>
+
+      <div class="secure-note">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="5" width="8" height="6" rx="1"/><path d="M3.5 5V3.5a2.5 2.5 0 015 0V5"/></svg>
+        Secure checkout
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  /* ============================================================
+     CART DATA  ▸▸▸ SAMPLE DATA — REPLACE WITH REAL CART STATE ◂◂◂
+     ------------------------------------------------------------
+     This is placeholder data so the page has something to show.
+     In a real build, this array would come from wherever you
+     store the cart (localStorage, a global cart object updated
+     by the "Add to Cart" buttons on the home catalogue /
+     product-detail.html, or a backend/session).
+
+     Each cart line needs:
+       id        - unique line id (not the same as product id, in
+                   case the same product is added twice with
+                   different colours)
+       productId - which product this is (matches product-detail
+                   ids, useful if you link back to the product)
+       name      - product name
+       image     - product image path
+       colour    - selected colour name
+       price     - unit price (number, no "R")
+       qty       - quantity in cart
+  ============================================================ */
+  let cart = [
+    {
+      id: 1,
+      productId: 1,
+      name: "Dual Headphone Stand",            // ← REPLACE with real product name
+      image: "https://placehold.co/200x200/1E1E1E/00AAFF?text=Product", // ← REPLACE with real image path
+      colour: "Black",                         // ← REPLACE with selected colour
+      price: 349,                              // ← REPLACE with real unit price
+      qty: 1
+    },
+    {
+      id: 2,
+      productId: 2,
+      name: "Modular Desk Organiser",          // ← REPLACE
+      image: "https://placehold.co/200x200/1E1E1E/00AAFF?text=Product", // ← REPLACE
+      colour: "White",                         // ← REPLACE
+      price: 249,                              // ← REPLACE
+      qty: 2
+    },
+    {
+      id: 3,
+      productId: 3,
+      name: "Remote & Controller Holder",      // ← REPLACE
+      image: "https://placehold.co/200x200/1E1E1E/00AAFF?text=Product", // ← REPLACE
+      colour: "Electric Blue",                 // ← REPLACE
+      price: 179,                              // ← REPLACE
+      qty: 1
+    }
+
+    /* ── TO ADD MORE SAMPLE LINES ──────────────────────────────
+       Copy one object above, give it a new unique "id", fill it in.
+    ------------------------------------------------------------ */
+  ];
+
+  // Colour name → hex, used for the small colour dot indicator.
+  // Add an entry here if you introduce a new colour name above.
+  cart = ModuForgeCart.getCart();
+
+  const COLOUR_HEX = {
+    "Black": "#0A0A0A",
+    "White": "#F0F0F0",
+    "Grey": "#888888",
+    "Electric Blue": "#00AAFF"
+  };
+
+  /* ============================================================
+     CONFIG  ▸▸▸ EDIT DELIVERY RULES HERE IF THEY CHANGE ◂◂◂
+  ============================================================ */
+  const DELIVERY_FEE = 99;          // ← REPLACE if delivery fee changes
+  const FREE_DELIVERY_THRESHOLD = 1000; // ← REPLACE if free-delivery cutoff changes
+
+  /* ============================================================
+     RENDER LOGIC — no need to edit below this line
+  ============================================================ */
+  function formatPrice(n) {
+    return n.toLocaleString('en-ZA', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+  }
+
+  function calcSubtotal() {
+    return cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+  }
+
+  function createCartItemEl(item) {
+    const hex = COLOUR_HEX[item.colour] || '#555555';
+    const lineTotal = item.price * item.qty;
+    const componentsHtml = item.type === 'bundle' && item.components?.length
+      ? `
+        <div class="bundle-components">
+          ${item.components.map(component => `
+            <div class="bundle-component">
+              <span>${component.name}</span>
+              <span>R ${formatPrice(component.price)}</span>
+            </div>
+          `).join('')}
+        </div>
+      `
+      : '';
+
+    const el = document.createElement('div');
+    el.className = 'cart-item';
+    el.dataset.id = item.id;
+
+    el.innerHTML = `
+      <div class="item-img">
+        <img src="${item.image}" alt="${item.name}" />
+      </div>
+      <div class="item-details">
+        <div class="item-name">${item.name}</div>
+        <div class="item-meta">
+          <div class="item-colour">
+            <span class="colour-dot" style="background:${hex}"></span>
+            ${item.colour}
+          </div>
+          <div class="item-unit-price">R ${formatPrice(item.price)} each</div>
+        </div>
+        ${componentsHtml}
+        <div class="item-controls">
+          <div class="qty-control">
+            <button class="qty-btn qty-minus" aria-label="Decrease quantity">−</button>
+            <div class="qty-num">${item.qty}</div>
+            <button class="qty-btn qty-plus" aria-label="Increase quantity">+</button>
+          </div>
+          <button class="btn-remove">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 3.5h9M5 3.5V2a1 1 0 011-1h1a1 1 0 011 1v1.5M3.5 3.5l.5 8a1 1 0 001 1h4a1 1 0 001-1l.5-8"/></svg>
+            Remove
+          </button>
+        </div>
+      </div>
+      <div class="item-line-total">R ${formatPrice(lineTotal)}</div>
+    `;
+
+    // Quantity controls
+    el.querySelector('.qty-plus').addEventListener('click', () => {
+      cart = ModuForgeCart.updateQty(item.id, item.qty + 1);
+      render();
+    });
+
+    el.querySelector('.qty-minus').addEventListener('click', () => {
+      cart = ModuForgeCart.updateQty(item.id, item.qty - 1);
+      render();
+    });
+
+    // Remove button
+    el.querySelector('.btn-remove').addEventListener('click', () => {
+      cart = ModuForgeCart.removeLine(item.id);
+      render();
+    });
+
+    return el;
+  }
+
+  function renderEmptyState() {
+    const wrap = document.getElementById('cartItemsWrap');
+    wrap.innerHTML = `
+      <div class="empty-cart">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h7l4.5 22h20l4-15H13"/><circle cx="19" cy="40" r="3.5"/><circle cx="34" cy="40" r="3.5"/></svg>
+        <h3>Your cart is empty</h3>
+        <p>Looks like you haven't added anything yet.</p>
+        <a href="index.html#products">Browse Products →</a>
+      </div>
+    `;
+  }
+
+  function render() {
+    cart = ModuForgeCart.getCart();
+    const wrap = document.getElementById('cartItemsWrap');
+    const navBadge = document.getElementById('navCartBadge');
+
+    const totalItems = ModuForgeCart.getCount(cart);
+    navBadge.textContent = totalItems;
+
+    if (cart.length === 0) {
+      renderEmptyState();
+    } else {
+      wrap.innerHTML = '<div class="cart-items" id="cartItems"></div>';
+      const list = document.getElementById('cartItems');
+      cart.forEach(item => list.appendChild(createCartItemEl(item)));
+    }
+
+    // Summary calculations
+    const subtotal = calcSubtotal();
+    const deliveryFee = (subtotal >= FREE_DELIVERY_THRESHOLD || subtotal === 0) ? 0 : DELIVERY_FEE;
+    const total = subtotal + deliveryFee;
+
+    document.getElementById('summarySubtotal').textContent = `R ${formatPrice(subtotal)}`;
+
+    const deliveryEl = document.getElementById('summaryDelivery');
+    if (deliveryFee === 0 && subtotal > 0) {
+      deliveryEl.textContent = 'FREE';
+      deliveryEl.classList.add('free');
+    } else {
+      deliveryEl.textContent = `R ${formatPrice(deliveryFee)}`;
+      deliveryEl.classList.remove('free');
+    }
+
+    // Delivery hint
+    const hintEl = document.getElementById('deliveryHint');
+    if (subtotal === 0) {
+      hintEl.style.display = 'none';
+    } else if (subtotal >= FREE_DELIVERY_THRESHOLD) {
+      hintEl.style.display = '';
+      hintEl.classList.add('qualified');
+      hintEl.innerHTML = `<strong>✓ Free delivery</strong> unlocked on this order.`;
+    } else {
+      hintEl.style.display = '';
+      hintEl.classList.remove('qualified');
+      const remaining = FREE_DELIVERY_THRESHOLD - subtotal;
+      hintEl.innerHTML = `Add <strong>R ${formatPrice(remaining)}</strong> more to qualify for <strong>free delivery</strong>.`;
+    }
+
+    document.getElementById('summaryTotal').textContent = formatPrice(total);
+
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    checkoutBtn.disabled = cart.length === 0;
+  }
+
+  // Checkout button — placeholder behaviour
+  document.getElementById('checkoutBtn').addEventListener('click', () => {
+    if (cart.length === 0) return;
+    alert('Checkout flow goes here — connect this to your payment/checkout process.');
+  });
+
+  // Mobile nav
+  const hamburger = document.getElementById('hamburger');
+  const navLinks  = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', open);
+  });
+
+  render();
+</script>
+</body>
+</html>

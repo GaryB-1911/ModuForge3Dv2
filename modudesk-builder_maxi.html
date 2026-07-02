@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Build Your Maxi-ModuDesk — ModuForge 3D</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script src="cart-utils.js"></script>
+<link rel="stylesheet" href="moduforge-styles.css" />
+<style>
+  .mf-builder-maxi nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,10,0.96);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .mf-builder-maxi .nav-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    position: relative;
+  }
+
+  .mf-builder-maxi .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .mf-builder-maxi .logo-mark svg { display: block; }
+
+  .mf-builder-maxi .logo-text {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 1.35rem;
+    letter-spacing: 0.06em;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .mf-builder-maxi .logo-text span { color: var(--blue); }
+
+  .mf-builder-maxi .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    list-style: none;
+  }
+
+  .mf-builder-maxi .nav-links a {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--grey);
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 3px;
+    transition: color 0.2s, background 0.2s;
+  }
+
+  .mf-builder-maxi .nav-links a:hover { color: var(--white); background: var(--surface); }
+
+  .mf-builder-maxi .btn-contact {
+    background: var(--blue);
+    color: var(--black) !important;
+    padding: 8px 18px !important;
+    border-radius: 2px !important;
+    font-weight: 700 !important;
+  }
+
+  .mf-builder-maxi .btn-contact:hover {
+    background: #33BBFF !important;
+    box-shadow: 0 0 20px var(--blue-glow) !important;
+  }
+
+  .mf-builder-maxi .nav-cart { position: relative; }
+
+  .mf-builder-maxi .cart-badge {
+    position: absolute;
+    top: -4px;
+    right: 4px;
+    width: 16px;
+    height: 16px;
+    background: var(--blue);
+    border-radius: 50%;
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .mf-builder-maxi .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 6px;
+    border: none;
+    background: none;
+  }
+
+  .mf-builder-maxi .hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--light);
+  }
+
+  @media (max-width: 768px) {
+    .mf-builder-maxi .nav-links {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 64px;
+      left: 0;
+      right: 0;
+      background: rgba(10,10,10,0.98);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      gap: 4px;
+    }
+
+    .mf-builder-maxi .nav-links.open { display: flex; }
+    .mf-builder-maxi .hamburger { display: flex; }
+  }
+</style>
+</head>
+<body class="mf-builder-maxi">
+
+<!-- ── NAV ──────────────────────────────────────────── -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo" aria-label="ModuForge 3D home">
+      <div class="logo-mark">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="16,2 30,10 30,22 16,30 2,22 2,10" stroke="#00AAFF" stroke-width="1.5" fill="none"/>
+          <polygon points="16,8 24,12.5 24,19.5 16,24 8,19.5 8,12.5" fill="#00AAFF" opacity="0.18"/>
+          <line x1="16" y1="2" x2="16" y2="30" stroke="#00AAFF" stroke-width="0.75" opacity="0.4"/>
+          <line x1="2" y1="10" x2="30" y2="22" stroke="#00AAFF" stroke-width="0.75" opacity="0.4"/>
+          <line x1="30" y1="10" x2="2" y2="22" stroke="#00AAFF" stroke-width="0.75" opacity="0.4"/>
+          <circle cx="16" cy="16" r="3" fill="#00AAFF"/>
+        </svg>
+      </div>
+      <span class="logo-text">Modu<span>Forge</span> 3D</span>
+    </a>
+
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks" role="navigation">
+      <li><a href="index.html#products">Products</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li class="nav-cart"><a href="cart.html" aria-label="Cart">Cart<span class="cart-badge">0</span></a></li>
+      <li><a href="modudesk-builder.html">Custom Print</a></li>
+      <li><a href="index.html#contact" class="btn-contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── PAGE ─────────────────────────────────────────── -->
+<div class="page">
+
+  <!-- Heading -->
+  <div class="page-header">
+    <p class="eyebrow">Configure Your Setup</p>
+    <h1 class="page-title">Build Your Maxi-ModuDesk</h1>
+    <p class="page-sub">Start with the base desk and add the components that work for your setup. Prices update as you go.</p>
+  </div>
+
+  <!-- Hero image -->
+  <div class="hero-image-wrap">
+    <!-- Replace this div with: <img src="your-desk-image.jpg" alt="ModuDesk complete setup" /> -->
+    <div class="hero-placeholder">
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.2">
+        <rect x="8" y="8" width="48" height="36" rx="2"/>
+        <circle cx="24" cy="26" r="7"/>
+        <path d="M8 44l14-14 8 8 12-14 14 20"/>
+      </svg>
+      <p><img src="images/gaming 1.png" alt=""></p>
+    </div>
+    <div class="hero-corner tl"></div>
+    <div class="hero-corner tr"></div>
+    <div class="hero-corner bl"></div>
+    <div class="hero-corner br"></div>
+  </div>
+
+  <!-- Add-ons list -->
+  <div class="addons-heading">
+    <h2>Choose Your Add-Ons</h2>
+    <div class="addons-count"><span id="selectedCount">0</span> of 8 selected</div>
+  </div>
+
+  <div class="addon-list" id="addonList">
+
+    <!-- Row template:
+         - Set data-price to the item's price in cents (e.g. 34900 = R349)
+         - Replace the img-placeholder div with <img src="..." alt="..." />
+    -->
+
+    <div class="addon-row" data-id="1" data-price="34900">
+      <div class="addon-img">
+        <div class="addon-img-placeholder">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="2" width="18" height="14" rx="1"/><path d="M2 16l5-5 3 3 5-6 5 8"/></svg>
+          <span>Image</span>
+        </div>
+      </div>
+      <div class="addon-info">
+        <div class="addon-name">Maxi Base</div>
+        <div class="addon-desc">Weighted base, matte finish. Holds 2 pairs over-ear.</div>
+        <div class="addon-badge">Most Popular</div>
+      </div>
+      <div class="addon-price">R 349</div>
+      <div class="addon-check-wrap">
+        <label class="custom-checkbox" aria-label="Add Dual Headphone Stand">
+          <input type="checkbox" class="addon-checkbox" />
+          <div class="check-box">
+            <div class="check-fill"></div>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,7 6,11 12,3"/></svg>
+          </div>
+        </label>
+        <span class="check-label">Add</span>
+      </div>
+      <div class="added-pill">Added ✓</div>
+    </div>
+
+    <div class="addon-row" data-id="2" data-price="24900">
+      <div class="addon-img">
+        <div class="addon-img-placeholder">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="2" width="18" height="14" rx="1"/><path d="M2 16l5-5 3 3 5-6 5 8"/></svg>
+          <span>Image</span>
+        </div>
+      </div>
+      <div class="addon-info">
+        <div class="addon-name">Modular Desk Organiser</div>
+        <div class="addon-desc">Stackable compartments. 1× module included, expandable.</div>
+      </div>
+      <div class="addon-price">R 249</div>
+      <div class="addon-check-wrap">
+        <label class="custom-checkbox" aria-label="Add Modular Desk Organiser">
+          <input type="checkbox" class="addon-checkbox" />
+          <div class="check-box">
+            <div class="check-fill"></div>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,7 6,11 12,3"/></svg>
+          </div>
+        </label>
+        <span class="check-label">Add</span>
+      </div>
+      <div class="added-pill">Added ✓</div>
+    </div>
+
+    <div class="addon-row" data-id="3" data-price="17900">
+      <div class="addon-img">
+        <div class="addon-img-placeholder">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="2" width="18" height="14" rx="1"/><path d="M2 16l5-5 3 3 5-6 5 8"/></svg>
+          <span>Image</span>
+        </div>
+      </div>
+      <div class="addon-info">
+        <div class="addon-name">Remote &amp; Controller Holder</div>
+        <div class="addon-desc">Desk-clamp or wall-mount. Fits most remotes &amp; controllers.</div>
+      </div>
+      <div class="addon-price">R 179</div>
+      <div class="addon-check-wrap">
+        <label class="custom-checkbox" aria-label="Add Remote and Controller Holder">
+          <input type="checkbox" class="addon-checkbox" />
+          <div class="check-box">
+            <div class="check-fill"></div>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,7 6,11 12,3"/></svg>
+          </div>
+        </label>
+        <span class="check-label">Add</span>
+      </div>
+      <div class="added-pill">Added ✓</div>
+    </div>
+
+    <div class="addon-row" data-id="4" data-price="8900">
+      <div class="addon-img">
+        <div class="addon-img-placeholder">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="2" width="18" height="14" rx="1"/><path d="M2 16l5-5 3 3 5-6 5 8"/></svg>
+          <span>Image</span>
+        </div>
+      </div>
+      <div class="addon-info">
+        <div class="addon-name">Cable Management Clip Set</div>
+        <div class="addon-desc">Self-adhesive desk-edge clips. Set of 6, peels off cleanly.</div>
+      </div>
+      <div class="addon-price">R 89</div>
+      <div class="addon-check-wrap">
+        <label class="custom-checkbox" aria-label="Add Cable Management Clip Set">
+          <input type="checkbox" class="addon-checkbox" />
+          <div class="check-box">
+            <div class="check-fill"></div>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,7 6,11 12,3"/></svg>
+          </div>
+        </label>
+        <span class="check-label">Add</span>
+      </div>
+      <div class="added-pill">Added ✓</div>
+    </div>
+
+    <div class="addon-row" data-id="5" data-price="45900">
+      <div class="addon-img">
+        <div class="addon-img-placeholder">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="2" width="18" height="14" rx="1"/><path d="M2 16l5-5 3 3 5-6 5 8"/></svg>
+          <span>Image</span>
+        </div>
+      </div>
+      <div class="addon-info">
+        <div class="addon-name">Monitor Riser &amp; Shelf</div>
+        <div class="addon-desc">Eye-level screen elevation. Keyboard shelf underneath. 8 kg rated.</div>
+        <div class="addon-badge">Bundle Save</div>
+      </div>
+      <div class="addon-price">R 459</div>
+      <div class="addon-check-wrap">
+        <label class="custom-checkbox" aria-label="Add Monitor Riser and Shelf">
+          <input type="checkbox" class="addon-checkbox" />
+          <div class="check-box">
+            <div class="check-fill"></div>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,7 6,11 12,3"/></svg>
+          </div>
+        </label>
+        <span class="check-label">Add</span>
+      </div>
+      <div class="added-pill">Added ✓</div>
+    </div>
+
+    <div class="addon-row" data-id="6" data-price="12900">
+      <div class="addon-img">
+        <div class="addon-img-placeholder">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="2" width="18" height="14" rx="1"/><path d="M2 16l5-5 3 3 5-6 5 8"/></svg>
+          <span>Image</span>
+        </div>
+      </div>
+      <div class="addon-info">
+        <div class="addon-name">Nameplate &amp; Label Set</div>
+        <div class="addon-desc">Custom text, choice of font &amp; finish. 3–5 day lead time.</div>
+      </div>
+      <div class="addon-price">R 129</div>
+      <div class="addon-check-wrap">
+        <label class="custom-checkbox" aria-label="Add Nameplate and Label Set">
+          <input type="checkbox" class="addon-checkbox" />
+          <div class="check-box">
+            <div class="check-fill"></div>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,7 6,11 12,3"/></svg>
+          </div>
+        </label>
+        <span class="check-label">Add</span>
+      </div>
+      <div class="added-pill">Added ✓</div>
+    </div>
+
+    <div class="addon-row" data-id="7" data-price="19900">
+      <div class="addon-img">
+        <div class="addon-img-placeholder">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="2" width="18" height="14" rx="1"/><path d="M2 16l5-5 3 3 5-6 5 8"/></svg>
+          <span>Image</span>
+        </div>
+      </div>
+      <div class="addon-info">
+        <div class="addon-name">Phone &amp; Tablet Stand</div>
+        <div class="addon-desc">Adjustable angle dock for phones and small tablets. Anti-slip base.</div>
+      </div>
+      <div class="addon-price">R 199</div>
+      <div class="addon-check-wrap">
+        <label class="custom-checkbox" aria-label="Add Phone and Tablet Stand">
+          <input type="checkbox" class="addon-checkbox" />
+          <div class="check-box">
+            <div class="check-fill"></div>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,7 6,11 12,3"/></svg>
+          </div>
+        </label>
+        <span class="check-label">Add</span>
+      </div>
+      <div class="added-pill">Added ✓</div>
+    </div>
+
+    <div class="addon-row" data-id="8" data-price="15900">
+      <div class="addon-img">
+        <div class="addon-img-placeholder">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="2" width="18" height="14" rx="1"/><path d="M2 16l5-5 3 3 5-6 5 8"/></svg>
+          <span>Image</span>
+        </div>
+      </div>
+      <div class="addon-info">
+        <div class="addon-name">Pen &amp; Stylus Holder</div>
+        <div class="addon-desc">5-slot cylindrical pen caddy. Weighted, no-tip base. Matches desk finish.</div>
+      </div>
+      <div class="addon-price">R 159</div>
+      <div class="addon-check-wrap">
+        <label class="custom-checkbox" aria-label="Add Pen and Stylus Holder">
+          <input type="checkbox" class="addon-checkbox" />
+          <div class="check-box">
+            <div class="check-fill"></div>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,7 6,11 12,3"/></svg>
+          </div>
+        </label>
+        <span class="check-label">Add</span>
+      </div>
+      <div class="added-pill">Added ✓</div>
+    </div>
+
+  </div>
+
+  <!-- Tally -->
+  <div class="tally-card">
+    <div class="tally-title">Your ModuDesk Selection</div>
+
+    <div class="tally-lines" id="tallyLines">
+      <div class="tally-empty" id="tallyEmpty">No add-ons selected yet — choose from the list above.</div>
+    </div>
+
+    <div class="builder-colour-block">
+      <div class="builder-colour-label">Colour for all selected add-ons</div>
+      <div class="builder-colour-options">
+        <label class="builder-colour-option">
+          <input type="radio" name="buildColour" value="Black" checked />
+          <span class="builder-colour-swatch swatch-black"></span>
+          <span>Black</span>
+        </label>
+        <label class="builder-colour-option">
+          <input type="radio" name="buildColour" value="White" />
+          <span class="builder-colour-swatch swatch-white"></span>
+          <span>White</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="tally-divider"></div>
+
+    <div class="tally-summary">
+      <div class="tally-count"><strong id="tallyCount">0</strong> item<span id="tallyPlural">s</span> selected</div>
+      <div class="tally-right">
+        <div class="tally-total-label">Total</div>
+        <div class="tally-total-amount">R <span id="tallyTotal">0</span></div>
+      </div>
+    </div>
+
+    <button class="btn-cart" id="cartBtn" disabled>
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M1 1h2.5l1.6 8h9l1.4-5.5H5"/>
+        <circle cx="7.5" cy="15.5" r="1.5"/>
+        <circle cx="13.5" cy="15.5" r="1.5"/>
+      </svg>
+      Add ModuDesk to Cart
+    </button>
+  </div>
+
+</div>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+
+  hamburger.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', open);
+  });
+
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', false);
+    });
+  });
+
+  ModuForgeCart.updateBadges();
+
+  const rows       = document.querySelectorAll('.addon-row');
+  const tallyLines = document.getElementById('tallyLines');
+  const tallyEmpty = document.getElementById('tallyEmpty');
+  const tallyCount = document.getElementById('tallyCount');
+  const tallyPlural= document.getElementById('tallyPlural');
+  const tallyTotal = document.getElementById('tallyTotal');
+  const cartBtn    = document.getElementById('cartBtn');
+  const selCount   = document.getElementById('selectedCount');
+
+  // Store {id: {name, price, el}}
+  const items = {};
+  rows.forEach(row => {
+    const id    = row.dataset.id;
+    const name  = row.querySelector('.addon-name').textContent.trim();
+    const price = parseInt(row.dataset.price, 10); // cents
+    items[id]   = { name, price, row };
+  });
+
+  function formatPrice(cents) {
+    return (cents / 100).toLocaleString('en-ZA', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+  }
+
+  function updateTally() {
+    const selected = Object.values(items).filter(i => i.checked);
+    const count    = selected.length;
+    const total    = selected.reduce((s, i) => s + i.price, 0);
+
+    // Update counter in heading
+    selCount.textContent = count;
+
+    // Tally lines
+    // Remove old lines (not the empty message)
+    tallyLines.querySelectorAll('.tally-line').forEach(l => l.remove());
+
+    if (count === 0) {
+      tallyEmpty.style.display = '';
+    } else {
+      tallyEmpty.style.display = 'none';
+      selected.forEach(item => {
+        const line = document.createElement('div');
+        line.className = 'tally-line';
+        line.innerHTML = `<span class="tl-name">${item.name}</span><span class="tl-price">R ${formatPrice(item.price)}</span>`;
+        tallyLines.appendChild(line);
+      });
+    }
+
+    tallyCount.textContent  = count;
+    tallyPlural.textContent = count === 1 ? '' : 's';
+    tallyTotal.textContent  = formatPrice(total);
+    cartBtn.disabled        = count === 0;
+  }
+
+  // Wire up checkboxes
+  rows.forEach(row => {
+    const checkbox = row.querySelector('.addon-checkbox');
+    const id = row.dataset.id;
+
+    checkbox.addEventListener('change', () => {
+      const checked = checkbox.checked;
+      items[id].checked = checked;
+      row.classList.toggle('is-added', checked);
+      updateTally();
+    });
+  });
+
+  // Cart button
+  cartBtn.addEventListener('click', () => {
+    const selected = Object.values(items).filter(i => i.checked);
+    const total = selected.reduce((sum, item) => sum + item.price, 0) / 100;
+    const buildColour = document.querySelector('input[name="buildColour"]:checked')?.value || 'Black';
+
+    ModuForgeCart.addBundle({
+      bundleId: 'modudesk-maxi',
+      name: 'Maxi-ModuDesk Custom Build',
+      image: 'images/gaming 1.png',
+      colour: buildColour,
+      price: total,
+      components: selected.map(item => ({
+        id: item.row.dataset.id,
+        name: item.name,
+        price: item.price / 100
+      }))
+    });
+    cartBtn.textContent = `✓  ${selected.length} item${selected.length !== 1 ? 's' : ''} added to cart!`;
+    cartBtn.style.background = '#1a6a2a';
+    cartBtn.style.boxShadow  = 'none';
+    setTimeout(() => {
+      cartBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 1h2.5l1.6 8h9l1.4-5.5H5"/><circle cx="7.5" cy="15.5" r="1.5"/><circle cx="13.5" cy="15.5" r="1.5"/></svg> Add ModuDesk to Cart`;
+      cartBtn.style.background = '';
+      cartBtn.style.boxShadow  = '';
+    }, 2800);
+  });
+
+  updateTally();
+</script>
+</body>
+</html>
