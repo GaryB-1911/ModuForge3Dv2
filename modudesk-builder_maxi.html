@@ -141,6 +141,77 @@
     .mf-builder-maxi .nav-links.open { display: flex; }
     .mf-builder-maxi .hamburger { display: flex; }
   }
+
+  .mf-builder-maxi .base-warning-modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(0, 0, 0, 0.68);
+    z-index: 300;
+  }
+
+  .mf-builder-maxi .base-warning-modal.show { display: flex; }
+
+  .mf-builder-maxi .base-warning-panel {
+    width: min(100%, 420px);
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 22px;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+  }
+
+  .mf-builder-maxi .base-warning-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+
+  .mf-builder-maxi .base-warning-text {
+    color: var(--light);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 18px;
+  }
+
+  .mf-builder-maxi .base-warning-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+
+  .mf-builder-maxi .base-warning-btn {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--white);
+    padding: 10px 16px;
+    border-radius: 3px;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .mf-builder-maxi .base-warning-btn:hover {
+    border-color: var(--blue);
+  }
+
+  .mf-builder-maxi .base-warning-btn.is-primary {
+    background: var(--blue);
+    color: var(--black);
+    border-color: var(--blue);
+  }
+
+  .mf-builder-maxi .base-warning-btn.is-primary:hover {
+    background: #33BBFF;
+  }
 </style>
 </head>
 <body class="mf-builder-maxi">
@@ -195,7 +266,7 @@
         <circle cx="24" cy="26" r="7"/>
         <path d="M8 44l14-14 8 8 12-14 14 20"/>
       </svg>
-      <p><img src="images/gaming 1.png" alt=""></p>
+      <p><img src="images/office_maxi_2.png" alt=""></p>
     </div>
     <div class="hero-corner tl"></div>
     <div class="hero-corner tr"></div>
@@ -216,7 +287,7 @@
          - Replace the img-placeholder div with <img src="..." alt="..." />
     -->
 
-    <div class="addon-row" data-id="1" data-price="34900">
+    <div class="addon-row" data-id="1" data-price="34900" data-group="base-choice">
       <div class="addon-img">
         <div class="addon-img-placeholder">
           <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="2" width="18" height="14" rx="1"/><path d="M2 16l5-5 3 3 5-6 5 8"/></svg>
@@ -225,12 +296,12 @@
       </div>
       <div class="addon-info">
         <div class="addon-name">Maxi Base</div>
-        <div class="addon-desc">Weighted base, matte finish. Holds 2 pairs over-ear.</div>
-        <div class="addon-badge">Most Popular</div>
+        <div class="addon-desc">The Maxi Base Only includes the two 3D printed support legs required to build your ModuForge Desk Organiser. Wooden dowels are not included, allowing you to purchase your own 19 mm dowels locally and cut them to your preferred length for a fully customised setup.</div>
+        <div class="addon-badge">Base Only - *Dowels Excluded*</div>
       </div>
-      <div class="addon-price">R 349</div>
+      <div class="addon-price">R 249.00</div>
       <div class="addon-check-wrap">
-        <label class="custom-checkbox" aria-label="Add Dual Headphone Stand">
+        <label class="custom-checkbox" aria-label="Add Maxi Base">
           <input type="checkbox" class="addon-checkbox" />
           <div class="check-box">
             <div class="check-fill"></div>
@@ -242,7 +313,7 @@
       <div class="added-pill">Added ✓</div>
     </div>
 
-    <div class="addon-row" data-id="2" data-price="24900">
+    <div class="addon-row" data-id="2" data-price="24900" data-group="base-choice">
       <div class="addon-img">
         <div class="addon-img-placeholder">
           <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="2" width="18" height="14" rx="1"/><path d="M2 16l5-5 3 3 5-6 5 8"/></svg>
@@ -250,12 +321,15 @@
         </div>
       </div>
       <div class="addon-info">
-        <div class="addon-name">Modular Desk Organiser</div>
-        <div class="addon-desc">Stackable compartments. 1× module included, expandable.</div>
+        <div class="addon-name">Maxi Base Kit</div>
+        <div class="addon-desc">The Maxi Base Kit is the complete foundation for your ModuForge Desk Organiser. It includes two 3D printed support legs and 19 mm wooden dowels, giving you everything you need to create a sturdy, modular workspace ready for all compatible ModuForge accessories.
+        <br>
+        Size - 82 mm (H) × 198 mm (D) × 900 mm (W)</div>
+        <div class="addon-badge">Base Kit - *Dowels Included*</div>
       </div>
-      <div class="addon-price">R 249</div>
+      <div class="addon-price">R 649.99</div>
       <div class="addon-check-wrap">
-        <label class="custom-checkbox" aria-label="Add Modular Desk Organiser">
+        <label class="custom-checkbox" aria-label="Add Maxi Base Kit">
           <input type="checkbox" class="addon-checkbox" />
           <div class="check-box">
             <div class="check-fill"></div>
@@ -275,12 +349,15 @@
         </div>
       </div>
       <div class="addon-info">
-        <div class="addon-name">Remote &amp; Controller Holder</div>
-        <div class="addon-desc">Desk-clamp or wall-mount. Fits most remotes &amp; controllers.</div>
+        <div class="addon-name">Headphone Stand (Side Mount)</div>
+        <div class="addon-desc">Keep your headphones within easy reach while saving valuable desk space. The Headphone Stand (Side Mount) clips securely onto your ModuForge Desk Organiser, storing your headphones in a side-facing position for a clean, compact setup.
+          <br>
+          Side-facing design for a space-saving layout.
+        </div>
       </div>
-      <div class="addon-price">R 179</div>
+      <div class="addon-price">R 150.00</div>
       <div class="addon-check-wrap">
-        <label class="custom-checkbox" aria-label="Add Remote and Controller Holder">
+        <label class="custom-checkbox" aria-label="Add Headphone Stand (Side Mount)">
           <input type="checkbox" class="addon-checkbox" />
           <div class="check-box">
             <div class="check-fill"></div>
@@ -300,12 +377,14 @@
         </div>
       </div>
       <div class="addon-info">
-        <div class="addon-name">Cable Management Clip Set</div>
-        <div class="addon-desc">Self-adhesive desk-edge clips. Set of 6, peels off cleanly.</div>
+        <div class="addon-name">Headphone Stand (Front Mount)</div>
+        <div class="addon-desc">Keep your headphones neatly stored and always within easy reach. The Headphone Stand (Front Mount) clips securely onto your ModuForge Desk Organiser, storing your headphones in a front-facing position for quick access while keeping your workspace clean and organised.
+          <br>
+        Front-facing design for easy access.</div>
       </div>
-      <div class="addon-price">R 89</div>
+      <div class="addon-price">R 150.00</div>
       <div class="addon-check-wrap">
-        <label class="custom-checkbox" aria-label="Add Cable Management Clip Set">
+        <label class="custom-checkbox" aria-label="Add Headphone Stand (Front Mount)">
           <input type="checkbox" class="addon-checkbox" />
           <div class="check-box">
             <div class="check-fill"></div>
@@ -325,13 +404,12 @@
         </div>
       </div>
       <div class="addon-info">
-        <div class="addon-name">Monitor Riser &amp; Shelf</div>
-        <div class="addon-desc">Eye-level screen elevation. Keyboard shelf underneath. 8 kg rated.</div>
-        <div class="addon-badge">Bundle Save</div>
+        <div class="addon-name">Single Controller Holder</div>
+        <div class="addon-desc">Keep your favourite controller organised and within easy reach. The Single Controller Holder clips securely onto your ModuForge Desk Organiser and is compatible with PlayStation, Xbox, and most other console controllers, helping keep your gaming setup clean and clutter-free.</div>
       </div>
-      <div class="addon-price">R 459</div>
+      <div class="addon-price">R 119.99</div>
       <div class="addon-check-wrap">
-        <label class="custom-checkbox" aria-label="Add Monitor Riser and Shelf">
+        <label class="custom-checkbox" aria-label="Add Single Controller Holder">
           <input type="checkbox" class="addon-checkbox" />
           <div class="check-box">
             <div class="check-fill"></div>
@@ -351,12 +429,12 @@
         </div>
       </div>
       <div class="addon-info">
-        <div class="addon-name">Nameplate &amp; Label Set</div>
-        <div class="addon-desc">Custom text, choice of font &amp; finish. 3–5 day lead time.</div>
+        <div class="addon-name">Dual Controller Holder</div>
+        <div class="addon-desc">Store two controllers securely in one convenient place. The Dual Controller Holder clips onto your ModuForge Desk Organiser and is compatible with PlayStation, Xbox, and most other console controllers, keeping your gaming setup organised while protecting your controllers from unnecessary wear..</div>
       </div>
-      <div class="addon-price">R 129</div>
+      <div class="addon-price">R 199.00</div>
       <div class="addon-check-wrap">
-        <label class="custom-checkbox" aria-label="Add Nameplate and Label Set">
+        <label class="custom-checkbox" aria-label="Add Dual Controller Holder">
           <input type="checkbox" class="addon-checkbox" />
           <div class="check-box">
             <div class="check-fill"></div>
@@ -376,12 +454,12 @@
         </div>
       </div>
       <div class="addon-info">
-        <div class="addon-name">Phone &amp; Tablet Stand</div>
-        <div class="addon-desc">Adjustable angle dock for phones and small tablets. Anti-slip base.</div>
+        <div class="addon-name">Adjustable Phone Holder</div>
+        <div class="addon-desc">Keep your phone within sight and easy to access while you work or game. The Adjustable Phone Holder clips securely onto your ModuForge Desk Organiser and allows you to position your phone in either portrait or landscape orientation, with adjustable height and viewing angle for the perfect setup.</div>
       </div>
-      <div class="addon-price">R 199</div>
+      <div class="addon-price">R 179.00</div>
       <div class="addon-check-wrap">
-        <label class="custom-checkbox" aria-label="Add Phone and Tablet Stand">
+        <label class="custom-checkbox" aria-label="Add Adjustable Phone Holder">
           <input type="checkbox" class="addon-checkbox" />
           <div class="check-box">
             <div class="check-fill"></div>
@@ -401,12 +479,12 @@
         </div>
       </div>
       <div class="addon-info">
-        <div class="addon-name">Pen &amp; Stylus Holder</div>
-        <div class="addon-desc">5-slot cylindrical pen caddy. Weighted, no-tip base. Matches desk finish.</div>
+        <div class="addon-name">Watch Mount</div>
+        <div class="addon-desc">Keep your watch safely stored and always within easy reach. The Watch Mount clips securely onto your ModuForge Desk Organiser, providing a dedicated place to display and protect your smartwatch or wristwatch while keeping your workspace clean and organised.</div>
       </div>
-      <div class="addon-price">R 159</div>
+      <div class="addon-price">R 145.00</div>
       <div class="addon-check-wrap">
-        <label class="custom-checkbox" aria-label="Add Pen and Stylus Holder">
+        <label class="custom-checkbox" aria-label="Add Watch Mount">
           <input type="checkbox" class="addon-checkbox" />
           <div class="check-box">
             <div class="check-fill"></div>
@@ -466,6 +544,17 @@
 
 </div>
 
+<div class="base-warning-modal" id="baseWarningModal" aria-hidden="true">
+  <div class="base-warning-panel" role="dialog" aria-modal="true" aria-labelledby="baseWarningTitle">
+    <div class="base-warning-title" id="baseWarningTitle">Important</div>
+    <div class="base-warning-text" id="baseWarningText"></div>
+    <div class="base-warning-actions">
+      <button type="button" class="base-warning-btn" id="baseWarningCancel">Cancel</button>
+      <button type="button" class="base-warning-btn is-primary" id="baseWarningConfirm">Got it</button>
+    </div>
+  </div>
+</div>
+
 <script>
   const hamburger = document.getElementById('hamburger');
   const navLinks = document.getElementById('navLinks');
@@ -492,18 +581,79 @@
   const tallyTotal = document.getElementById('tallyTotal');
   const cartBtn    = document.getElementById('cartBtn');
   const selCount   = document.getElementById('selectedCount');
+  const baseWarningModal = document.getElementById('baseWarningModal');
+  const baseWarningText = document.getElementById('baseWarningText');
+  const baseWarningCancel = document.getElementById('baseWarningCancel');
+  const baseWarningConfirm = document.getElementById('baseWarningConfirm');
+  const builderLabel = 'Maxi';
+  let baseWarningAcknowledged = false;
+  let pendingAddToCart = null;
 
   // Store {id: {name, price, el}}
   const items = {};
+  function parseMoneyToCents(value) {
+    const normalized = String(value || '')
+      .replace(/[^0-9.,-]/g, '')
+      .replace(',', '.');
+    const amount = Number.parseFloat(normalized);
+    return Number.isFinite(amount) ? Math.round(amount * 100) : 0;
+  }
+
   rows.forEach(row => {
     const id    = row.dataset.id;
     const name  = row.querySelector('.addon-name').textContent.trim();
-    const price = parseInt(row.dataset.price, 10); // cents
-    items[id]   = { name, price, row };
+    const priceText = row.querySelector('.addon-price')?.textContent || row.dataset.price || '0';
+    const price = parseMoneyToCents(priceText) || parseInt(row.dataset.price, 10) || 0;
+    const checkbox = row.querySelector('.addon-checkbox');
+    items[id]   = { name, price, row, checkbox };
   });
 
   function formatPrice(cents) {
-    return (cents / 100).toLocaleString('en-ZA', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    return (Math.round(cents) / 100).toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  function showBaseWarning(onConfirm) {
+    pendingAddToCart = onConfirm;
+    baseWarningText.textContent = `The ${builderLabel} Base does not include 19mm dowels. You will need to purchase your own 19mm dowels separately before assembly.`;
+    baseWarningModal.classList.add('show');
+    baseWarningModal.setAttribute('aria-hidden', 'false');
+  }
+
+  function hideBaseWarning() {
+    baseWarningModal.classList.remove('show');
+    baseWarningModal.setAttribute('aria-hidden', 'true');
+    pendingAddToCart = null;
+  }
+
+  function selectedRequiresDowelWarning(selected) {
+    return selected.some(item => String(item.row.dataset.id) === '1');
+  }
+
+  function addSelectedToCart() {
+    const selected = Object.values(items).filter(i => i.checked);
+    const total = selected.reduce((sum, item) => sum + item.price, 0) / 100;
+    const buildColour = document.querySelector('input[name="buildColour"]:checked')?.value || 'Black';
+
+    ModuForgeCart.addBundle({
+      bundleId: 'modudesk-maxi',
+      name: 'Maxi-ModuDesk Custom Build',
+      image: 'images/gaming 1.png',
+      colour: buildColour,
+      price: total,
+      components: selected.map(item => ({
+        id: item.row.dataset.id,
+        name: item.name,
+        price: item.price / 100
+      }))
+    });
+    cartBtn.textContent = `✓  ${selected.length} item${selected.length !== 1 ? 's' : ''} added to cart!`;
+    cartBtn.style.background = '#1a6a2a';
+    cartBtn.style.boxShadow  = 'none';
+    setTimeout(() => {
+      cartBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 1h2.5l1.6 8h9l1.4-5.5H5"/><circle cx="7.5" cy="15.5" r="1.5"/><circle cx="13.5" cy="15.5" r="1.5"/></svg> Add ModuDesk to Cart`;
+      cartBtn.style.background = '';
+      cartBtn.style.boxShadow  = '';
+    }, 2800);
   }
 
   function updateTally() {
@@ -545,6 +695,19 @@
       const checked = checkbox.checked;
       items[id].checked = checked;
       row.classList.toggle('is-added', checked);
+
+      if (checked && row.dataset.group) {
+        rows.forEach(otherRow => {
+          if (otherRow === row || otherRow.dataset.group !== row.dataset.group) return;
+
+          const otherId = otherRow.dataset.id;
+          const otherCheckbox = items[otherId]?.checkbox;
+          if (otherCheckbox) otherCheckbox.checked = false;
+          if (items[otherId]) items[otherId].checked = false;
+          otherRow.classList.remove('is-added');
+        });
+      }
+
       updateTally();
     });
   });
@@ -552,32 +715,37 @@
   // Cart button
   cartBtn.addEventListener('click', () => {
     const selected = Object.values(items).filter(i => i.checked);
-    const total = selected.reduce((sum, item) => sum + item.price, 0) / 100;
-    const buildColour = document.querySelector('input[name="buildColour"]:checked')?.value || 'Black';
+    if (selected.length === 0) return;
 
-    ModuForgeCart.addBundle({
-      bundleId: 'modudesk-maxi',
-      name: 'Maxi-ModuDesk Custom Build',
-      image: 'images/gaming 1.png',
-      colour: buildColour,
-      price: total,
-      components: selected.map(item => ({
-        id: item.row.dataset.id,
-        name: item.name,
-        price: item.price / 100
-      }))
-    });
-    cartBtn.textContent = `✓  ${selected.length} item${selected.length !== 1 ? 's' : ''} added to cart!`;
-    cartBtn.style.background = '#1a6a2a';
-    cartBtn.style.boxShadow  = 'none';
-    setTimeout(() => {
-      cartBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 1h2.5l1.6 8h9l1.4-5.5H5"/><circle cx="7.5" cy="15.5" r="1.5"/><circle cx="13.5" cy="15.5" r="1.5"/></svg> Add ModuDesk to Cart`;
-      cartBtn.style.background = '';
-      cartBtn.style.boxShadow  = '';
-    }, 2800);
+    if (!baseWarningAcknowledged && selectedRequiresDowelWarning(selected)) {
+      showBaseWarning(() => {
+        baseWarningAcknowledged = true;
+        addSelectedToCart();
+      });
+      return;
+    }
+
+    addSelectedToCart();
+  });
+
+  baseWarningCancel.addEventListener('click', hideBaseWarning);
+  baseWarningConfirm.addEventListener('click', () => {
+    const confirmAction = pendingAddToCart;
+    hideBaseWarning();
+    if (typeof confirmAction === 'function') confirmAction();
+  });
+  baseWarningModal.addEventListener('click', event => {
+    if (event.target === baseWarningModal) hideBaseWarning();
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && baseWarningModal.classList.contains('show')) {
+      hideBaseWarning();
+    }
   });
 
   updateTally();
 </script>
 </body>
 </html>
+
+

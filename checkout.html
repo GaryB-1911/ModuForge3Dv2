@@ -1187,7 +1187,7 @@ let selectedDelivery = {
    UTILITIES
 ============================================================ */
 function fmt(n) {
-  return n.toLocaleString('en-ZA', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+  return Number(n || 0).toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
 function calcSubtotal() {
@@ -1249,6 +1249,20 @@ function expandCartItemsForOrder(cartItems = cart) {
 
 function getExpandedItemCount(cartItems = cart) {
   return expandCartItemsForOrder(cartItems).reduce((sum, item) => sum + (Number(item.qty) || 0), 0);
+}
+
+function getBuilderPrefix(item) {
+  const bundleId = String(item.bundleId || '').toLowerCase();
+
+  if (bundleId === 'modudesk-mini') return '(Mini)';
+  if (bundleId === 'modudesk-maxi') return '(Maxi)';
+
+  return '';
+}
+
+function labelOrderItemForSheet(item) {
+  const prefix = getBuilderPrefix(item);
+  return prefix ? `${prefix} ${item.name}` : item.name;
 }
 
 /* ============================================================
@@ -1475,6 +1489,10 @@ function showToast(msg) {
 ============================================================ */
 function buildOrderPayload() {
   const expandedItems = expandCartItemsForOrder();
+  const sheetItems = expandedItems.map(item => ({
+    ...item,
+    name: item.type === 'bundle-component' ? labelOrderItemForSheet(item) : item.name
+  }));
 
   return {
     customer: {
@@ -1493,7 +1511,7 @@ function buildOrderPayload() {
       fee:        calcDeliveryFee()
     },
     notes:      document.getElementById('notes').value.trim(),
-    items:      expandedItems,
+    items:      sheetItems,
     subtotal:   calcSubtotal(),
     total:      calcSubtotal() + calcDeliveryFee(),
     currency:   'ZAR',

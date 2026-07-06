@@ -173,7 +173,7 @@
      RENDER LOGIC — no need to edit below this line
   ============================================================ */
   function formatPrice(n) {
-    return n.toLocaleString('en-ZA', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    return Number(n || 0).toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   }
 
   function calcSubtotal() {
@@ -314,10 +314,10 @@
     checkoutBtn.disabled = cart.length === 0;
   }
 
-  // Checkout button — placeholder behaviour
+  // Checkout button — go to the real checkout page
   document.getElementById('checkoutBtn').addEventListener('click', () => {
     if (cart.length === 0) return;
-    alert('Checkout flow goes here — connect this to your payment/checkout process.');
+    window.location.href = 'checkout.html';
   });
 
   // Mobile nav
