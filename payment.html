@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payment - ModuForge 3D</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; }
+    :root {
+      --black: #0A0A0A;
+      --card: #141414;
+      --surface: #1E1E1E;
+      --border: #2A2A2A;
+      --grey: #888888;
+      --light: #F0F0F0;
+      --white: #FFFFFF;
+      --blue: #00AAFF;
+      --blue-glow: rgba(0,170,255,0.35);
+      --green: #3F8F5E;
+    }
+    html, body { margin: 0; min-height: 100%; background: var(--black); color: var(--light); }
+    body { font-family: 'Inter', sans-serif; }
+    a { color: inherit; }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(10,10,10,0.96);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .brand strong {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.3rem;
+      color: var(--white);
+      letter-spacing: 0.06em;
+    }
+    .brand strong span { color: var(--blue); }
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 24px 80px;
+    }
+    .header {
+      margin-bottom: 22px;
+    }
+    .eyebrow {
+      margin: 0 0 8px;
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      font-size: 0.74rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--blue);
+    }
+    h1 {
+      margin: 0;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: clamp(2rem, 4vw, 2.7rem);
+      letter-spacing: 0.03em;
+      color: var(--white);
+      line-height: 1.05;
+    }
+    .sub {
+      margin: 12px 0 0;
+      color: var(--grey);
+      max-width: 68ch;
+      line-height: 1.6;
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) 360px;
+      gap: 24px;
+      align-items: start;
+    }
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 22px;
+    }
+    .summary-card {
+      position: sticky;
+      top: 88px;
+    }
+    .section-title {
+      margin: 0 0 14px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+    .amount {
+      display: grid;
+      gap: 6px;
+      padding: 16px;
+      margin-bottom: 18px;
+      background: rgba(0,170,255,0.08);
+      border: 1px solid rgba(0,170,255,0.25);
+      border-radius: 4px;
+    }
+    .amount-label {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--blue);
+      font-size: 0.78rem;
+    }
+    .amount-value {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1;
+    }
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.95rem;
+    }
+    .meta-row:last-child { border-bottom: 0; }
+    .meta-row span:first-child { color: var(--grey); }
+    .meta-row strong { color: var(--white); font-weight: 600; }
+    .bank-list {
+      display: grid;
+      gap: 10px;
+    }
+    .bank-item {
+      padding: 12px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+    .bank-label {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--grey);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .bank-value {
+      color: var(--white);
+      font-weight: 500;
+      word-break: break-word;
+    }
+    .note {
+      margin-top: 16px;
+      padding: 14px;
+      border-left: 2px solid var(--blue);
+      background: rgba(0,170,255,0.06);
+      color: var(--light);
+      line-height: 1.6;
+    }
+    .note a { color: var(--blue); text-decoration: none; }
+    .note a:hover { text-decoration: underline; }
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .btn {
+      appearance: none;
+      border: 0;
+      border-radius: 3px;
+      min-height: 44px;
+      padding: 0 16px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+    }
+    .btn-primary {
+      background: var(--blue);
+      color: var(--black);
+      box-shadow: 0 0 0 1px rgba(0,170,255,0.08);
+    }
+    .btn-primary:hover {
+      background: #33BBFF;
+      box-shadow: 0 0 18px var(--blue-glow);
+    }
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--white);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover { border-color: var(--blue); }
+    .notice {
+      margin-top: 14px;
+      color: var(--grey);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    .empty {
+      color: var(--grey);
+      line-height: 1.6;
+    }
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .summary-card { position: static; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="nav-inner">
+      <a class="brand" href="index.html" aria-label="ModuForge 3D home">
+        <strong>Modu<span>Forge</span> 3D</strong>
+      </a>
+      <a class="btn btn-secondary" href="cart.html" style="max-width: 180px;">Back to Cart</a>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="header">
+      <p class="eyebrow">Step 3 of 3</p>
+      <h1>Payment Details</h1>
+      <p class="sub">Please use the EFT details below to complete your payment. Use your Order ID as the payment reference so we can match your order quickly.</p>
+    </div>
+
+    <div class="layout">
+      <section class="panel">
+        <h2 class="section-title">EFT Payment</h2>
+        <div id="paymentContent"></div>
+      </section>
+
+      <aside class="panel summary-card">
+        <h2 class="section-title">Amount Due</h2>
+        <div class="amount">
+          <div class="amount-label">Total to pay</div>
+          <div class="amount-value" id="amountDue">R 0.00</div>
+        </div>
+        <div class="meta-row">
+          <span>Order ID</span>
+          <strong id="orderIdLabel">MF-00000</strong>
+        </div>
+        <div class="meta-row">
+          <span>Reference</span>
+          <strong id="referenceLabel">MF-00000</strong>
+        </div>
+        <div class="notice">
+          For faster order processing, please email proof of payment to
+          <a href="mailto:info@modudesk3d.co.za">info@modudesk3d.co.za</a>.
+        </div>
+        <div class="actions">
+          <button class="btn btn-primary" id="continueBtn" type="button">Continue to Confirmation</button>
+          <a class="btn btn-secondary" href="checkout.html">Back</a>
+        </div>
+        <div class="notice">Once your payment has been made, continue to the confirmation page.</div>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    const DEFAULT_ORDER = { orderId: 'MF-00000', total: 0 };
+
+    function formatMoney(value) {
+      return Number(value || 0).toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function readPaymentOrder() {
+      const params = new URLSearchParams(window.location.search);
+      let stored = null;
+
+      try {
+        stored = JSON.parse(localStorage.getItem('moduforgePendingPaymentOrder') || 'null');
+      } catch (error) {
+        stored = null;
+      }
+
+      return {
+        ...DEFAULT_ORDER,
+        ...(stored || {}),
+        orderId: stored?.orderId || params.get('orderId') || DEFAULT_ORDER.orderId,
+        total: Number(stored?.total ?? params.get('total') ?? DEFAULT_ORDER.total)
+      };
+    }
+
+    const order = readPaymentOrder();
+    const orderIdLabel = document.getElementById('orderIdLabel');
+    const referenceLabel = document.getElementById('referenceLabel');
+    const amountDue = document.getElementById('amountDue');
+    const paymentContent = document.getElementById('paymentContent');
+    const continueBtn = document.getElementById('continueBtn');
+
+    orderIdLabel.textContent = order.orderId;
+    referenceLabel.textContent = order.orderId;
+    amountDue.textContent = `R ${formatMoney(order.total)}`;
+
+    paymentContent.innerHTML = order.orderId === DEFAULT_ORDER.orderId && order.total === 0
+      ? '<div class="empty">No payment order was found. Please return to checkout and place your order again.</div>'
+      : `
+        <div class="bank-list">
+          <div class="bank-item">
+            <span class="bank-label">Account Name</span>
+            <div class="bank-value">ModuForge 3D</div>
+          </div>
+          <div class="bank-item">
+            <span class="bank-label">Bank</span>
+            <div class="bank-value">Standard Bank</div>
+          </div>
+          <div class="bank-item">
+            <span class="bank-label">Account Number</span>
+            <div class="bank-value">000000000000</div>
+          </div>
+          <div class="bank-item">
+            <span class="bank-label">Reference</span>
+            <div class="bank-value">${order.orderId}</div>
+          </div>
+        </div>
+      `;
+
+    continueBtn.disabled = order.orderId === DEFAULT_ORDER.orderId && order.total === 0;
+
+    continueBtn.addEventListener('click', () => {
+      if (continueBtn.disabled) return;
+
+      localStorage.setItem('moduforgeConfirmedOrder', JSON.stringify({
+        orderId: order.orderId,
+        total: order.total
+      }));
+      localStorage.removeItem('moduforgePendingPaymentOrder');
+      window.location.href = 'confirmation.html';
+    });
+  </script>
+</body>
+</html>

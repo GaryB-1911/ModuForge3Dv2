@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order Confirmation - ModuForge 3D</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; }
+    :root {
+      --black: #0A0A0A;
+      --card: #141414;
+      --surface: #1E1E1E;
+      --border: #2A2A2A;
+      --grey: #888888;
+      --light: #F0F0F0;
+      --white: #FFFFFF;
+      --blue: #00AAFF;
+      --blue-glow: rgba(0,170,255,0.35);
+      --green: #3F8F5E;
+    }
+    html, body { margin: 0; min-height: 100%; background: var(--black); color: var(--light); }
+    body {
+      font-family: 'Inter', sans-serif;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+    .wrap {
+      width: min(680px, 100%);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 36px 28px;
+      text-align: center;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(63,143,94,0.4);
+      background: rgba(63,143,94,0.12);
+      color: #9BC8AC;
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+    }
+    h1 {
+      margin: 18px 0 10px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      letter-spacing: 0.04em;
+      color: var(--white);
+    }
+    p {
+      margin: 0 0 18px;
+      color: var(--grey);
+      line-height: 1.6;
+    }
+    .order-box {
+      margin: 22px 0;
+      padding: 18px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      text-align: left;
+    }
+    .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .row:last-child { border-bottom: 0; }
+    .row span:first-child { color: var(--grey); }
+    .row strong { color: var(--white); }
+    .amount {
+      margin: 16px 0 0;
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      color: var(--blue);
+    }
+    .buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 18px;
+      border-radius: 3px;
+      text-decoration: none;
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .btn-primary {
+      background: var(--blue);
+      color: var(--black);
+    }
+    .btn-primary:hover { box-shadow: 0 0 18px var(--blue-glow); }
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--white);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover { border-color: var(--blue); }
+    .small {
+      margin-top: 18px;
+      font-size: 0.9rem;
+      color: var(--grey);
+    }
+    .small a { color: var(--blue); text-decoration: none; }
+    .small a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="badge">Confirmation</div>
+    <h1>Order Received</h1>
+    <p>Your payment step is complete. We’ve logged your order and will process it once the EFT payment is matched.</p>
+
+    <div class="order-box">
+      <div class="row">
+        <span>Order ID</span>
+        <strong id="confirmOrderId">MF-00000</strong>
+      </div>
+      <div class="row">
+        <span>Total</span>
+        <strong id="confirmTotal">R 0.00</strong>
+      </div>
+    </div>
+
+    <div class="buttons">
+      <a class="btn btn-primary" href="index.html">Back to Home</a>
+      <a class="btn btn-secondary" href="product-detail.html">View Products</a>
+    </div>
+
+    <p class="small">If you haven’t emailed proof of payment yet, send it to <a href="mailto:info@modudesk3d.co.za">info@modudesk3d.co.za</a>.</p>
+  </main>
+
+  <script>
+    function formatMoney(value) {
+      return Number(value || 0).toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function readConfirmedOrder() {
+      try {
+        return JSON.parse(localStorage.getItem('moduforgeConfirmedOrder') || 'null')
+          || JSON.parse(localStorage.getItem('moduforgePendingPaymentOrder') || 'null')
+          || {};
+      } catch (error) {
+        return {};
+      }
+    }
+
+    const order = readConfirmedOrder();
+    document.getElementById('confirmOrderId').textContent = order.orderId || 'MF-00000';
+    document.getElementById('confirmTotal').textContent = `R ${formatMoney(order.total)}`;
+  </script>
+</body>
+</html>
